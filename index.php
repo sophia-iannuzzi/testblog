@@ -24,7 +24,7 @@ $post = mysqli_query($conn, $query) or exit('bad query');
     <table style = "border:6px solid black;">
         <tr>
             <th> ID </th>
-            <th> Title example </th>
+            <th> Title YAYAY </th>
             <th> Category </th>
             <th> Username </th>
         </tr>
