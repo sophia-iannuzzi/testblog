@@ -6,7 +6,7 @@
         <a href="adminpostmanage.php">Manage Posts</a>
         <a href="admincategoriesmanage.php">Manage Categories</a>
         <a href="admincommentsmanage.php">Manage Comments</a>
-        <a href="">Edit a Profile</a>
+        <a href="adminusermanage.php">Edit a Profile</a>
         <a href = "..\bloglogout.php">Logout</a>
     </nav>
 </body>

@@ -9,8 +9,8 @@ if (isset($_POST['submit'])) {
   $title = $_POST['title'];
   $content = $_POST['content'];
   $categoryid = $_POST['categoryid'];
-  $result = $conn->prepare("UPDATE post SET title=?, content=? WHERE post_id=?");
-  $result->bind_param("ssi", $title, $content, $postid);
+  $result = $conn->prepare("UPDATE post SET title=?, content=?, category_id=? WHERE post_id=?");
+  $result->bind_param("ssii", $title, $content, $categoryid, $postid);
   $result->execute();
   if($_SESSION['levelid'] =='2') {
     header("Location:admin/adminpostmanage.php");
@@ -19,11 +19,13 @@ if (isset($_POST['submit'])) {
 // blank for now
   }
 }
-$query = "SELECT * FROM `post` WHERE post_id=$postid";
+$query = "SELECT * FROM `post` JOIN `category` ON post.category_id=category.category_id WHERE post_id=$postid";
 $result = mysqli_query($conn, $query);
 while ($rows = mysqli_fetch_array($result)) {
     $title = $rows['title'];
     $content = $rows['content'];
+    $categoryid = $rows['category_id'];
+    $categoryname = $rows['categoryname'];
 }
 ?>
 
@@ -70,15 +72,20 @@ while ($rows = mysqli_fetch_array($result)) {
     }
   </style>
 </head>
-
+  <?php
+  require ('navbar.php');
+    ?>
 <body>
   <form method = 'POST' action = "<?php echo $_SERVER['PHP_SELF']; ?>">
-  <input type = 'text' name = 'title' value = '<?php if (isset($title)) { echo $title; }?>'> 
-  <select name = 'category' >
+  <input type = 'text' name = 'title' value = '<?php echo $title?>'> 
+  <select name = 'categoryid' >
     <?php 
     include "query/categorylistquery.php";
+    echo "<option value ='". $categoryid. "'>". $categoryname. "</option>";
     while ($rows = mysqli_fetch_array($categories)) {
-      echo "<option value ='". $rows['category_id']. "'>". $rows['categoryname']. "</option>";
+      if ($rows['category_id']!=$categoryid) {
+        echo "<option value ='". $rows['category_id']. "'>". $rows['categoryname']. "</option>";
+      }
     } ?>
   </select>
   <div id="editor">

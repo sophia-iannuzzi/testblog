@@ -4,30 +4,22 @@ include '..\connectionvar.php';
 if ($_SESSION['levelid']!='2') {
     header("Location:..\index.php");
 }
-if (isset($_SESSION['categoryid'])) {
-    $categoryid = $_SESSION['categoryid'];
-}
+$categoryid = $_SESSION['categoryid'];
+
 if (isset($_POST['savebutton'])) {
     $categoryname = $_POST['categoryname'];
     $description = $_POST['description'];
-    if (isset($categoryid)) { 
-        $result = $conn->prepare("UPDATE category SET categoryname=?, description=? WHERE category_id=$categoryid");
-        $result->bind_param("ss", $categoryname, $description);
-        $result->execute();
-    } else {
-        $result = $conn->prepare("INSERT INTO `category` (`categoryname`, `description`) VALUE (?, ?)");
-        $result->bind_param("ss", $categoryname, $description);
-        $result->execute();
-        $_SESSION['categoryid'] = mysqli_insert_id($conn);
-    }
+    $result = $conn->prepare("UPDATE category SET categoryname=?, description=? WHERE category_id=$categoryid");
+    $result->bind_param("ss", $categoryname, $description);
+    $result->execute();
+    header("Location:admincategoriesmanage.php");
 }
-if (isset($categoryid)) {
-    $query = "SELECT * FROM `category` WHERE category_id=$categoryid";
-    $result = mysqli_query($conn, $query);
-    while ($rows = mysqli_fetch_array($result)) {
-        $categoryname = $rows['categoryname'];
-        $description = $rows['description'];
-    }
+
+$query = "SELECT * FROM `category` WHERE category_id=$categoryid";
+$result = mysqli_query($conn, $query);
+while ($rows = mysqli_fetch_array($result)) {
+    $categoryname = $rows['categoryname'];
+    $description = $rows['description'];
 }
 ?>
 

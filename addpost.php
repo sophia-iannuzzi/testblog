@@ -1,11 +1,19 @@
 <?php
+session_start();
+if (!isset($_SESSION['levelid'])) {
+  header("Location:logout.php");
+}
 include "connectionvar.php";
-if (isset($_POST['submit']) and isset($_POST['editorcontent'])) {
-  $content = $_POST['editorcontent'];
+if (isset($_POST['save']) and isset($_POST['title']) and isset($_POST['content'])) {
   $userid = $_SESSION['userid'];
+  $title = $_POST['title'];
+  $categoryid = $_POST['category'];
+  $content = $_POST['content'];
   $date = date('Y-m-d');
-  // $query = "INSERT INTO `post` (`user_id`, `title`, `category_id`, `content`, `status_id`, `date`) VALUE ('$userid', '$title', '$categoryid', '$content', '$statusid', '$date')";
-  // mysqli_query($conn, $query);
+  $query = "INSERT INTO `post` (`user_id`, `title`, `category_id`, `content`, `status_id`, `date`) VALUE ('$userid', '$title', '$categoryid', '$content', '1', '$date')";
+  mysqli_query($conn, $query);
+  header("Location:index.php");
+// temporary
 }
 ?>
 

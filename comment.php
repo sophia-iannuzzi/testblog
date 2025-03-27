@@ -19,7 +19,7 @@ if (isset($_POST['submitbutton'])) {
 <html>
 <body>
     <?php
-    if ($_SESSION['userid']=='2') {
+    if ($_SESSION['levelid']=='2') {
         require ('adminnav.php');
     } else {
         require ('navbar.php');
