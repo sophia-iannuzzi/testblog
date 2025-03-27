@@ -1,6 +1,29 @@
 <?php
-if (isset($_POST['save']) and isset($_POST['editorcontent'])) {
-  $content = $_POST['editorcontent'];
+session_start();
+if (!isset($_SESSION['levelid'])) {
+  header("Location:logout.php");
+}
+include "connectionvar.php";
+$postid = $_SESSION['postid'];
+if (isset($_POST['submit'])) {
+  $title = $_POST['title'];
+  $content = $_POST['content'];
+  $categoryid = $_POST['categoryid'];
+  $result = $conn->prepare("UPDATE post SET title=?, content=? WHERE post_id=?");
+  $result->bind_param("ssi", $title, $content, $postid);
+  $result->execute();
+  if($_SESSION['levelid'] =='2') {
+    header("Location:admin/adminpostmanage.php");
+  } elseif ($_SESSION['levelid'] =='1') {
+    // header("Location:");
+// blank for now
+  }
+}
+$query = "SELECT * FROM `post` WHERE post_id=$postid";
+$result = mysqli_query($conn, $query);
+while ($rows = mysqli_fetch_array($result)) {
+    $title = $rows['title'];
+    $content = $rows['content'];
 }
 ?>
 
@@ -49,13 +72,20 @@ if (isset($_POST['save']) and isset($_POST['editorcontent'])) {
 </head>
 
 <body>
+  <form method = 'POST' action = "<?php echo $_SERVER['PHP_SELF']; ?>">
+  <input type = 'text' name = 'title' value = '<?php if (isset($title)) { echo $title; }?>'> 
+  <select name = 'category' >
+    <?php 
+    include "query/categorylistquery.php";
+    while ($rows = mysqli_fetch_array($categories)) {
+      echo "<option value ='". $rows['category_id']. "'>". $rows['categoryname']. "</option>";
+    } ?>
+  </select>
   <div id="editor">
-    <form method = 'POST' action = "<?php echo $_SERVER['PHP_SELF']; ?>">
-      <textarea name = 'editorcontent' id='edit'> <?php if(isset($_POST['editorcontent'])) { echo $content;}?> </textarea>
-      <input type = 'submit' name = 'save' value = 'save' >
-    </form>
+      <textarea name = 'content' id='edit'> <?php if(isset($content)) { echo $content;}?> </textarea>
+      <input type = 'submit' name = 'submit' value = 'submit' >
   </div>
-
+  </form>
   <script type="text/javascript"
     src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.js"></script>
   <script type="text/javascript"
