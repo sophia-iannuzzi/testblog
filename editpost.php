@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION['levelid'])) {
-  header("Location:logout.php");
+  header("Location:index.php");
 }
 include "connectionvar.php";
 $postid = $_SESSION['postid'];
@@ -80,7 +80,7 @@ while ($rows = mysqli_fetch_array($result)) {
   <input type = 'text' name = 'title' value = '<?php echo $title?>'> 
   <select name = 'categoryid' >
     <?php 
-    include "query/categorylistquery.php";
+    include("categorylistquery.php");
     echo "<option value ='". $categoryid. "'>". $categoryname. "</option>";
     while ($rows = mysqli_fetch_array($categories)) {
       if ($rows['category_id']!=$categoryid) {

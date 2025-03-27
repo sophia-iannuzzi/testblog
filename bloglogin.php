@@ -1,6 +1,6 @@
 <?php
 session_start();
-include "query/userlistquery.php";
+include("userlistquery.php");
 if (isset($_POST['loginbutton'])) {
     $username = $_POST['username'];
     $pwd = $_POST['pwd'];
@@ -15,6 +15,7 @@ if (isset($_POST['loginbutton'])) {
                     header("Location:index.php");
                 } else {
                     $msg = 'incorrect password';
+                    break;
                 }
             } else {
                 $msg = 'incorrect username';

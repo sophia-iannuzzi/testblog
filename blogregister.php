@@ -1,5 +1,5 @@
 <?php
-include 'query/userlistquery.php';
+include 'userlistquery.php';
 if (isset($_POST['registerbutton'])) {
     $fname = $_POST['fname'];
     $lname = $_POST['lname'];
@@ -17,8 +17,9 @@ if (isset($_POST['registerbutton'])) {
                 }
             }
             if (!isset($msg)) {
-                $query = "INSERT INTO `user` (`fname`, `lname`, `email`, `username`, `hash`,`level_id`) value ('$fname', '$lname', '$email', '$username', '$hashpwd', '1')";
-                mysqli_query($conn, $query) or exit('bad query');
+                $result=$conn->prepare("INSERT INTO `user` (`fname`, `lname`, `email`, `username`, `hash`,`level_id`) value (?, ?, ?, ?, ?, '1')");
+                $result->bind_param("sssss", $fname, $lname, $email, $username, $hashpwd);
+                $result->execute();
                 $msg = 'registered';
             }
         }

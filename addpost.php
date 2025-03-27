@@ -35,7 +35,6 @@ if (isset($_POST['save']) and isset($_POST['title']) and isset($_POST['content']
   <link rel="stylesheet" href="froala/line_breaker.css">
   <link rel="stylesheet" href="froala/table.css">
   <link rel="stylesheet" href="froala/char_counter.css">
-  <link rel="stylesheet" href="froala/video.css">
   <link rel="stylesheet" href="froala/fullscreen.css">
   <link rel="stylesheet" href="froala/file.css">
   <link rel="stylesheet" href="froala/quick_insert.css">
@@ -62,11 +61,12 @@ if (isset($_POST['save']) and isset($_POST['title']) and isset($_POST['content']
 </head>
 
 <body>
+<?php require('navbar.php'); ?> <br>
 <form method = 'POST' action = "<?php echo $_SERVER['PHP_SELF']; ?>">
   <input type = 'text' name = 'title' value = 'Write Title!'> 
   <select name = 'category' >
     <?php 
-    include "query/categorylistquery.php";
+    include "categorylistquery.php";
     while ($rows = mysqli_fetch_array($categories)) {
       echo "<option value ='". $rows['category_id']. "'>". $rows['categoryname']. "</option>";
     } ?>
@@ -109,7 +109,6 @@ if (isset($_POST['save']) and isset($_POST['title']) and isset($_POST['content']
   <script type="text/javascript" src="froala/table.min.js"></script>
   <script type="text/javascript" src="froala/save.min.js"></script>
   <script type="text/javascript" src="froala/url.min.js"></script>
-  <script type="text/javascript" src="froala/video.min.js"></script>
   <script type="text/javascript" src="froala/help.min.js"></script>
   <script type="text/javascript" src="froala/print.min.js"></script>
   <script type="text/javascript" src="froala/spell_checker.min.js"></script>

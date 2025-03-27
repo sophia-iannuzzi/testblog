@@ -1,9 +1,7 @@
 <?php
 session_start();
 include '..\connectionvar.php';
-if ($_SESSION['levelid']!='2') {
-    header("Location:..\index.php");
-}
+require("adminerror.php");
 $categoryid = $_SESSION['categoryid'];
 
 if (isset($_POST['savebutton'])) {

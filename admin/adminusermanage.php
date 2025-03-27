@@ -1,9 +1,7 @@
 <?php
 session_start();
-include("..\query/userlistquery.php");
-if ($_SESSION['levelid']!='2') {
-    header("Location:..\index.php");
-}
+include("../userlistquery.php");
+require("adminerror.php");
 if (isset($_POST['edituser']) and isset($_POST['editop'])) {
     // header("Location:")
 // unfinished

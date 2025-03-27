@@ -1,9 +1,7 @@
 <?php
 session_start();
 include '..\connectionvar.php';
-if ($_SESSION['levelid']!='2') {
-    header("Location:..\index.php");
-}
+require("adminerror.php");
 $commentid = $_SESSION['commentid'];
 if (isset($_POST['savebutton'])) {
     $title = $_POST['title'];
@@ -11,6 +9,7 @@ if (isset($_POST['savebutton'])) {
     $result = $conn->prepare("UPDATE comment SET title=?, content=? WHERE comment_id=?");
     $result->bind_param("ssi", $title, $content, $commentid);
     $result->execute();
+    header("Location:admincommentsmanage.php");
 }
 $query = "SELECT * FROM `comment` WHERE comment_id=$commentid";
 $result = mysqli_query($conn, $query);

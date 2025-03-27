@@ -1,9 +1,7 @@
 <?php
 session_start();
-include("..\query/categorylistquery.php");
-if ($_SESSION['levelid']!='2') {
-    header("Location:..\index.php");
-}
+include("../categorylistquery.php");
+require("adminerror.php");
 if (isset($_POST['editcategory']) and isset($_POST['editop'])) {
     $_SESSION['categoryid'] = $_POST['editop'];
     header("Location:categoryedit.php");

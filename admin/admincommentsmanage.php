@@ -1,6 +1,7 @@
 <?php
 session_start();
 include("..\connectionvar.php");
+require("adminerror.php");
 $query = "SELECT  * FROM `comment`";
 $comment = mysqli_query($conn, $query) or exit('bad query');
 if (isset($_POST['editcomment']) and isset($_POST['editop'])) {
