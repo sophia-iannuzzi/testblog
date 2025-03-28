@@ -10,9 +10,9 @@ if (isset($_POST['save']) and isset($_POST['title']) and isset($_POST['content']
   $categoryid = $_POST['category'];
   $content = $_POST['content'];
   $date = date('Y-m-d');
-  $query = "INSERT INTO `post` (`user_id`, `title`, `category_id`, `content`, `status_id`, `date`) VALUE ('$userid', '$title', '$categoryid', '$content', '1', '$date')";
+  $query = "INSERT INTO `post` (`user_id`, `title`, `content`, `statuspost`, `date`) VALUE ('$userid', '$title', '$content', '0', '$date')";
   mysqli_query($conn, $query);
-  header("Location:index.php");
+  // header("Location:index.php");
 // temporary
 }
 ?>
