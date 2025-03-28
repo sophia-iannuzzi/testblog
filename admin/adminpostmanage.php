@@ -1,8 +1,8 @@
 <?php
 session_start();
-include("..\connectionvar.php");
 require("adminerror.php");
-$query = "SELECT  * FROM `post` JOIN `user` ON post.user_id=user.user_id JOIN `category` ON post.category_id=category.category_id JOIN `status` ON post.status_id=status.status_id ORDER BY post_id ASC;";
+include("../postquery.php");
+$query .= " ORDER BY post_id ASC;";
 $post = mysqli_query($conn, $query) or exit('bad query');
 if (isset($_POST['addpost'])) {
     header ("Location:../addpost.php");
