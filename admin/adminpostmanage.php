@@ -1,9 +1,9 @@
 <?php
 session_start();
 require("adminerror.php");
-include("../postquery.php");
-$query .= " ORDER BY post.post_id ASC;";
-$post = mysqli_query($conn, $query) or exit('bad query');
+include("../connectionvar.php");
+$allpostlistq .= " ORDER BY post.post_id ASC;";
+$post = mysqli_query($conn, $allpostlistq) or exit('bad query');
 if (isset($_POST['addpost'])) {
     header ("Location:../addpost.php");
 }
@@ -13,14 +13,14 @@ if (isset($_POST['editpost']) and isset($_POST['editop'])) {
 }
 if (isset($_POST['status1']) and isset($_POST['editop'])) {
     $postid = $_POST['editop'];
-    $query = "UPDATE post SET statuspost='0' WHERE post_id=$postid";
+    $query = "UPDATE post SET status='0' WHERE post_id=$postid";
     mysqli_query($conn, $query);
     header("Location:adminpostmanage.php");
 }
 if (isset($_POST['status2']) and isset($_POST['editop'])) {
     $postid = $_POST['editop'];
     $date = date('Y-m-d');
-    $query = "UPDATE post SET statuspost='1', date='$date' WHERE post_id=$postid";
+    $query = "UPDATE post SET status='1', date='$date' WHERE post_id=$postid";
     mysqli_query($conn, $query);
     header("Location:adminpostmanage.php");
 }
@@ -41,7 +41,12 @@ if (isset($_POST['status2']) and isset($_POST['editop'])) {
         <form method = 'POST' action = "<?php echo $_SERVER['PHP_SELF']; ?>">
         <?php
         while ($row = mysqli_fetch_array($post)) {
-            echo "<tr> <td> <input type = 'radio' name = 'editop' value = '". $row['post_id']. "'> </td> <td>". $row['post_id']. "</td> <td>". $row['title']. "</td> <td>". $row['statuspost']. "</td> <td>". $row['date']. "</td> </tr>";
+            if ($row['status']=='0') {
+                $status = "unpublished";
+            } else {
+                $status = "published";
+            }
+            echo "<tr> <td> <input type = 'radio' name = 'editop' value = '". $row['post_id']. "'> </td> <td>". $row['post_id']. "</td> <td>". $row['title']. "</td> <td>". $status. "</td> <td>". $row['date']. "</td> </tr>";
         }
         ?>
     </table>

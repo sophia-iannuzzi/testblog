@@ -1,6 +1,6 @@
 <?php
 session_start();
-include("userlistquery.php");
+include("connectionvar.php");
 if (isset($_POST['loginbutton'])) {
     $username = $_POST['username'];
     $pwd = $_POST['pwd'];

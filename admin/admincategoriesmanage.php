@@ -1,6 +1,6 @@
 <?php
 session_start();
-include("../categorylistquery.php");
+include("../connectionvar.php");
 require("adminerror.php");
 if (isset($_POST['editcategory']) and isset($_POST['editop'])) {
     $_SESSION['categoryid'] = $_POST['editop'];

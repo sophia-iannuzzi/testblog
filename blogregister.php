@@ -1,5 +1,5 @@
 <?php
-include 'userlistquery.php';
+include("connectionvar.php");
 if (isset($_POST['registerbutton'])) {
     $fname = $_POST['fname'];
     $lname = $_POST['lname'];

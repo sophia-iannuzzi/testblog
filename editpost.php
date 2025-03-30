@@ -3,15 +3,13 @@ session_start();
 if (!isset($_SESSION['levelid'])) {
   header("Location:index.php");
 }
-include "connectionvar.php";
+include("connectionvar.php");
 $postid = $_SESSION['postid'];
 if (isset($_POST['submit'])) {
-  $title = $_POST['title'];
-  $content = $_POST['content'];
-  $categoryid = $_POST['categoryid'];
-  $result = $conn->prepare("UPDATE post SET title=?, content=?, category_id=? WHERE post_id=?");
-  $result->bind_param("ssii", $title, $content, $categoryid, $postid);
-  $result->execute();
+  $title = mysqli_real_escape_string($conn, $_POST['title']);
+  $content = mysqli_real_escape_string($conn, $_POST['content']);
+  $query = "UPDATE post SET title= '$title', content= '$content' WHERE post_id= '$postid'";
+  mysqli_query($conn, $query);
   if($_SESSION['levelid'] =='2') {
     header("Location:admin/adminpostmanage.php");
   } elseif ($_SESSION['levelid'] =='1') {
@@ -19,13 +17,11 @@ if (isset($_POST['submit'])) {
 // blank for now
   }
 }
-$query = "SELECT * FROM `post` JOIN `category` ON post.category_id=category.category_id WHERE post_id=$postid";
+$query = "SELECT * FROM `post` WHERE post.post_id=$postid";
 $result = mysqli_query($conn, $query);
 while ($rows = mysqli_fetch_array($result)) {
     $title = $rows['title'];
     $content = $rows['content'];
-    $categoryid = $rows['category_id'];
-    $categoryname = $rows['categoryname'];
 }
 ?>
 
@@ -78,16 +74,6 @@ while ($rows = mysqli_fetch_array($result)) {
 <body>
   <form method = 'POST' action = "<?php echo $_SERVER['PHP_SELF']; ?>">
   <input type = 'text' name = 'title' value = '<?php echo $title?>'> 
-  <select name = 'categoryid' >
-    <?php 
-    include("categorylistquery.php");
-    echo "<option value ='". $categoryid. "'>". $categoryname. "</option>";
-    while ($rows = mysqli_fetch_array($categories)) {
-      if ($rows['category_id']!=$categoryid) {
-        echo "<option value ='". $rows['category_id']. "'>". $rows['categoryname']. "</option>";
-      }
-    } ?>
-  </select>
   <div id="editor">
       <textarea name = 'content' id='edit'> <?php if(isset($content)) { echo $content;}?> </textarea>
       <input type = 'submit' name = 'submit' value = 'submit' >
@@ -134,7 +120,18 @@ while ($rows = mysqli_fetch_array($result)) {
 
   <script>
     (function () {
-      new FroalaEditor("#edit")
+      const editorInstance = new FroalaEditor("#edit", {
+        enter: FroalaEditor.ENTER_P,
+        placeholderText: null,
+        imageUpload: false, 
+        imageUploadURL: null,
+        inageUploadRemoteUrls: false,
+
+        imageInsertButtons: ['imageBack', '|', 'imageByURL'],
+
+        imagePaste: false
+      })
+
     })()
   </script>
 </body>

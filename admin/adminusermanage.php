@@ -1,6 +1,6 @@
 <?php
 session_start();
-include("../userlistquery.php");
+include("../connectionvar.php");
 require("adminerror.php");
 if (isset($_POST['edituser']) and isset($_POST['editop'])) {
     // header("Location:")
