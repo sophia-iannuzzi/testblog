@@ -4,19 +4,30 @@ include("connectionvar.php");
 if (!isset($_SESSION['levelid'])) {
     header("Location:bloglogin.php");
 }
-$pubnewpostlistq = $pubpostlistq;
-$pubnewpostlistq .= " ORDER BY post.date DESC;";
-$result = mysqli_query($conn, $pubnewpostlistq);
-$rows = mysqli_fetch_array($result);
-$newpostid = $rows['post_id'];
+if (isset($_POST['viewop'])) {
+    $_SESSION['postid'] = implode(",", $_POST['viewop']);
+} else {
+    $pubnewpostlistq = $pubpostlistq;
+    $pubnewpostlistq .= " ORDER BY post.date DESC;";
+    $result = mysqli_query($conn, $pubnewpostlistq);
+    $rows = mysqli_fetch_array($result);
+    $postid = $rows['post_id'];
+    $_SESSION['postid'] = $rows['post_id'];
+}
 ?>
 
 <html>
+<style>
+div {
+  width:49%;  
+  display:inline-block;
+}
+</style>
 <body>
     <?php require('navbar.php'); ?>
-    <h1> Landing page <h1> 
-    <?php require("viewblog.php"); ?>
-    <table style = "border:6px solid black;">
+    <h1> Landing page </h1> 
+    <div> <?php require("viewblog.php"); ?> </div>
+    <div> <table style = "border:6px solid black;">
     <form method = 'POST' action = '<?php $_SERVER['PHP_SELF'];?>'>
         <tr>
             <th> Select </th>
@@ -26,12 +37,12 @@ $newpostid = $rows['post_id'];
         <?php
         $c = 0;
         while ($row = mysqli_fetch_array($pubpostlist) and $c < '10') {
-            echo "<tr> <td> <input type ='radio' name ='viewop' value =". $row['post_id']. "</td> <td>". $row['title']. "</td> <td>". $row['username']. "</td> </tr>";
+            echo "<tr> <td> <button type ='submit' name ='viewop[]' value = '". $row['post_id']. "'>view</button> </td> <td>". $row['title']. "</td> <td>". $row['username']. "</td> </tr>";
             $c++;
         }
         ?>
     </table>
-    </form>
+    </form> </div>
 </body>
 </html>
 

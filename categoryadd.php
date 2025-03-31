@@ -5,11 +5,10 @@ if (!isset($_SESSION['levelid'])) {
   header("Location:logout.php");
 }
 if (isset($_POST['addcategory'])) {
-    $categoryname = $_POST['categoryname'];
-    $description = $_POST['description'];
-    $result = $conn->prepare("INSERT INTO `category` (`categoryname`, `description`) VALUE (?, ?)");
-    $result->bind_param("ss", $categoryname, $description);
-    $result->execute();
+    $categoryname = mysqli_real_escape_string($conn, $_POST['categoryname']);
+    $description = mysqli_real_escape_string($conn, $_POST['description']);
+    $query = "INSERT INTO `category` (`categoryname`, `description`) VALUE ('$categoryname', '$description')";
+    mysqli_query($conn, $query);
     header("Location:index.php");
 }
 ?>
