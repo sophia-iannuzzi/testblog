@@ -16,12 +16,12 @@ if (isset($_POST['submitbutton'])) {
 
 <html>
 <body>
-<h1> Cast a comment! </h1>
-<p> <?php
-if (!empty($msg)) {
-    echo "$msg";
-} ?> </p>
+    <h1> Cast a comment! </h1>
     <form method = "POST" action = "<?php echo $_SERVER['PHP_SELF'];?>">
+    <p> <?php
+    if (!empty($msg)) {
+        echo "$msg";
+    } ?> </p>
     Title: <input type = 'text' name = 'title'> <br>
     First Name: <input type = 'text' name = 'fname'> <br>
     Last Name: <input type = 'text' name = 'lname'> <br>

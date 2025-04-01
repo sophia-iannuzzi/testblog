@@ -1,6 +1,7 @@
 <?php
 session_start();
-include "connectionvar.php";
+include("connectionvar.php");
+include("categorylistquery.php");
 if (!isset($_SESSION['levelid'])) {
   header("Location:logout.php");
 }

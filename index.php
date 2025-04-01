@@ -1,11 +1,14 @@
 <?php
 session_start();
 include("connectionvar.php");
+include("postquery.php");
+
 if (!isset($_SESSION['levelid'])) {
     header("Location:bloglogin.php");
 }
 if (isset($_POST['viewop'])) {
     $_SESSION['postid'] = implode(",", $_POST['viewop']);
+    header("Location:viewblog.php");
 } else {
     $pubnewpostlistq = $pubpostlistq;
     $pubnewpostlistq .= " ORDER BY post.date DESC;";
@@ -18,15 +21,10 @@ if (isset($_POST['viewop'])) {
 
 <html>
 <style>
-div {
-  width:49%;  
-  display:inline-block;
-}
 </style>
 <body>
-    <?php require('navbar.php'); ?>
+    <?php include('navbar.php'); ?>
     <h1> Landing page </h1> 
-    <div> <?php require("viewblog.php"); ?> </div>
     <div> <table style = "border:6px solid black;">
     <form method = 'POST' action = '<?php $_SERVER['PHP_SELF'];?>'>
         <tr>
@@ -43,6 +41,7 @@ div {
         ?>
     </table>
     </form> </div>
+    <div> <?php require("viewblog.php"); ?> </div>
 </body>
 </html>
 
