@@ -2,10 +2,6 @@
 session_start();
 include("connectionvar.php");
 include("postquery.php");
-
-if (!isset($_SESSION['levelid'])) {
-    header("Location:bloglogin.php");
-}
 if (isset($_POST['viewop'])) {
     $_SESSION['postid'] = implode(",", $_POST['viewop']);
     header("Location:viewblog.php");
