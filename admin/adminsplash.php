@@ -7,6 +7,10 @@ require("adminerror.php");
 <body>
     <?php require('adminnav.php'); ?>
     <h1> Welcome Admin! </h1>
-    <form method = 'POST' action = "<?php echo $_SERVER["PHP_SELF"];?>">
+    <div>
+        <?php
+        require("charts.php");
+        ?>
+    </div>
 </body>
 </html>

@@ -20,8 +20,6 @@ if (isset($_POST['viewop'])) {
 ?>
 
 <html>
-<style>
-</style>
 <body>
     <?php include('navbar.php'); ?>
     <h1> Landing page </h1> 

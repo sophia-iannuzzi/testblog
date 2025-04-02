@@ -1,13 +1,15 @@
 <?php
 include("connectionvar.php");
+include("userlistquery.php");
 if (isset($_POST['registerbutton'])) {
-    $fname = $_POST['fname'];
-    $lname = $_POST['lname'];
-    $email = $_POST['email'];
-    $username = $_POST['username'];
-    $hashpwd = password_hash($_POST['pwd'], PASSWORD_DEFAULT);
+    $fname = mysqli_real_escape_string($conn,$_POST['fname']);
+    $lname = mysqli_real_escape_string($conn,$_POST['lname']);
+    $email = mysqli_real_escape_string($conn,$_POST['email']);
+    $username = mysqli_real_escape_string($conn,$_POST['username']);
+    $pwd = mysqli_real_escape_string($conn, $_POST['pwd']);
+    $hashpwd = password_hash($pwd, PASSWORD_DEFAULT);
     if (!empty($email) and !empty($hashpwd) and !empty($fname) and !empty($email)) {
-        if($username==$_POST['pwd']) {
+        if($username==$pwd) {
             $msg = "Username and password cannot be the same";
         } else {
             while ($row = mysqli_fetch_array($userlist)) {
@@ -17,9 +19,8 @@ if (isset($_POST['registerbutton'])) {
                 }
             }
             if (!isset($msg)) {
-                $result=$conn->prepare("INSERT INTO `user` (`fname`, `lname`, `email`, `username`, `hash`,`level_id`) value (?, ?, ?, ?, ?, '1')");
-                $result->bind_param("sssss", $fname, $lname, $email, $username, $hashpwd);
-                $result->execute();
+                $query = "INSERT INTO `user` (`fname`, `lname`, `email`, `username`, `hash`,`level_id`) value ('$fname', '$lname', '$email', '$username', '$hashpwd', '1')";
+                mysqli_query($conn, $query);
                 $msg = 'registered';
             }
         }

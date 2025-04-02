@@ -9,6 +9,9 @@ if (isset($_POST['addcategory'])) {
     $description = mysqli_real_escape_string($conn, $_POST['description']);
     $query = "INSERT INTO `category` (`categoryname`, `description`) VALUE ('$categoryname', '$description')";
     mysqli_query($conn, $query);
+    $catid = $conn->insert_id;
+    $query = "INSERT INTO `categorychart` (`category_id`, `blogcount`) VALUE ('$catid', '0')";
+    mysqli_query($conn, $query);
     header("Location:index.php");
 }
 ?>

@@ -10,7 +10,7 @@ if (isset($_POST['save']) and isset($_POST['title']) and isset($_POST['content']
   $title = mysqli_real_escape_string($conn, $_POST['title']);
   $content = mysqli_real_escape_string($conn, $_POST['content']);
   $date = date('Y-m-d');
-  $query = "INSERT INTO `post` (`user_id`, `title`, `content`, `status`, `date`) VALUE ('$userid', '$title', '$content', '0', '$date')";
+  $query = "INSERT INTO `post` (`user_id`, `title`, `content`, `statuspost`, `date`) VALUE ('$userid', '$title', '$content', '0', '$date')";
   mysqli_query($conn, $query);
   $postid = $conn->insert_id;
   foreach ($_POST['category'] as $categoryid) {
@@ -70,7 +70,7 @@ if (isset($_POST['save']) and isset($_POST['title']) and isset($_POST['content']
 <form method = 'POST' action = "<?php echo $_SERVER['PHP_SELF']; ?>">
   <input type = 'text' name = 'title' value = 'Write Title!'>
     <?php 
-    while ($rows = mysqli_fetch_array($categories)) {
+    while ($rows = mysqli_fetch_array($pcategories)) {
       echo "<input type = 'checkbox' name = 'category[]' value ='". $rows['category_id']. "'>". $rows['categoryname']. "</option>";
     } ?>
   </select>

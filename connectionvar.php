@@ -2,7 +2,7 @@
 define('dbhost', 'localhost');
 define('dbuser', 'root');
 define('dbpwd', '');
-define('dbname', 'blog');
+define('dbname', 'blogdb');
 $conn = mysqli_connect(dbhost, dbuser, dbpwd, dbname) or exit('bad connection');
 // require("categorylistquery.php");
 // require("commentquery.php");
