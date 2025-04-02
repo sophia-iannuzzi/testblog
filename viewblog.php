@@ -36,10 +36,12 @@ if (isset($location)) {
     <p3 style ="font-size:150%;"> 
     <?php
     echo $prow['content'];
-    ?> </p3><?php
+    ?> </p3>
+    <?php
     require("makecomment.php");
     ?>
-    <p> <br> <?php
+    <p> <br> 
+    <?php
     while ($crow = mysqli_fetch_array($postcomment)) {
         echo " Comment by: <br>". $crow['fname']. " ". $crow['lname']. "<br>". $crow['title']. "<p>". $crow['content']. "</p>";
     } ?> </p>

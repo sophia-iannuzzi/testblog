@@ -3,42 +3,11 @@ session_start();
 require("adminerror.php");
 include("../connectionvar.php");
 include("../postquery.php");
+include("../categorylistquery.php");
+$_SESSION['loc'] = 'admin';
 $allpostlistq .= " ORDER BY post_id ASC;";
-$post = mysqli_query($conn, $allpostlistq) or exit('bad query');
-if (isset($_POST['addpost'])) {
-    header ("Location:../addpost.php");
-}
-if (isset($_POST['editpost']) and isset($_POST['editop'])) {
-    $_SESSION['postid'] = $_POST['editop'];
-    header("Location:../editpost.php");
-}
-if (isset($_POST['status0']) and isset($_POST['editop'])) {
-    $postid = $_POST['editop'];
-    $query = "UPDATE post SET statuspost='0' WHERE post_id=$postid";
-    mysqli_query($conn, $query);
-    $query = "SELECT * FROM `post` JOIN `postcat` ON post.post_id=postcat.post_id WHERE post.post_id=$postid";
-    $re = mysqli_query($conn, $query);
-    while ($result = mysqli_fetch_array($re)) {
-    $catid = $result['category_id'];
-    $query = "UPDATE categorychart SET blogcount = blogcount - 1 WHERE category_id='$catid'";
-    mysqli_query($conn, $query);
-    }
-    header("Location:adminpostmanage.php");
-}
-if (isset($_POST['status1']) and isset($_POST['editop'])) {
-    $postid = $_POST['editop'];
-    $date = date('Y-m-d');
-    $query = "UPDATE post SET statuspost='1', date='$date' WHERE post_id=$postid";
-    mysqli_query($conn, $query);
-    $query = "SELECT * FROM `post` JOIN `postcat` ON post.post_id=postcat.post_id WHERE post.post_id=$postid";
-    $re = mysqli_query($conn, $query);
-    while ($result = mysqli_fetch_array($re)) {
-    $catid = $result['category_id'];
-    $query = "UPDATE categorychart SET blogcount = blogcount + 1 WHERE category_id='$catid'";
-    mysqli_query($conn, $query);
-    }
-    header("Location:adminpostmanage.php");
-}
+$postfil = mysqli_query($conn, $allpostlistq) or exit('bad query');
+require("../postop.php");
 ?>
 
 <html>
@@ -55,7 +24,7 @@ if (isset($_POST['status1']) and isset($_POST['editop'])) {
         </tr>
         <form method = 'POST' action = "<?php echo $_SERVER['PHP_SELF']; ?>">
         <?php
-        while ($row = mysqli_fetch_array($post)) {
+        while ($row = mysqli_fetch_array($postfil)) {
             if ($row['statuspost']=='0') {
                 $status = "unpublished";
             } elseif ($row['statuspost']=='1') {
@@ -68,7 +37,10 @@ if (isset($_POST['status1']) and isset($_POST['editop'])) {
     <input type = 'submit' name = 'addpost' value = 'add post' >
     <input type = 'submit' name = 'editpost' value = 'edit post' >
     <input type = 'submit' name = 'status0' value = 'unpublish post' >
-    <input type = 'submit' name = 'status1' value = 'publish post' >
+    <input type = 'submit' name = 'status1' value = 'publish post' > <br>
+    <?php
+    require("../filtercat.php");
+    ?>
     </form>
 </body>
 </html>

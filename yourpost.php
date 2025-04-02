@@ -1,13 +1,16 @@
 <?php
 session_start();
+$_SESSION['loc'] ='yourpost';
 if (!isset($_SESSION['levelid'])) {
     header("Location:bloglogout.php");
 }
 include("connectionvar.php");
+include("categorylistquery.php");
 include("postquery.php");
 $userid = $_SESSION['userid'];
 $allpostlistq .= " WHERE post.user_id='$userid' ORDER BY post_id ASC;";
-$post = mysqli_query($conn, $allpostlistq) or exit('bad query');
+$postfil = mysqli_query($conn, $allpostlistq) or exit('bad query');
+require("postop.php");
 ?>
 
 <html>
@@ -24,7 +27,7 @@ $post = mysqli_query($conn, $allpostlistq) or exit('bad query');
         </tr>
         <form method = 'POST' action = "<?php echo $_SERVER['PHP_SELF']; ?>">
         <?php
-        while ($row = mysqli_fetch_array($post)) {
+        while ($row = mysqli_fetch_array($postfil)) {
             if ($row['statuspost']=='0') {
                 $status = "unpublished";
             } elseif ($row['statuspost']=='1') {
@@ -37,7 +40,10 @@ $post = mysqli_query($conn, $allpostlistq) or exit('bad query');
     <input type = 'submit' name = 'addpost' value = 'add post' >
     <input type = 'submit' name = 'editpost' value = 'edit post' >
     <input type = 'submit' name = 'status0' value = 'unpublish post' >
-    <input type = 'submit' name = 'status1' value = 'publish post' >
+    <input type = 'submit' name = 'status1' value = 'publish post' > <br>
+    <?php
+    require("filtercat.php");
+    ?>
     </form>
 </body>
 </html>
