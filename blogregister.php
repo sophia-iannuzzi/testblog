@@ -21,6 +21,21 @@ if (isset($_POST['registerbutton'])) {
             if (!isset($msg)) {
                 $query = "INSERT INTO `user` (`fname`, `lname`, `email`, `username`, `hash`,`level_id`) value ('$fname', '$lname', '$email', '$username', '$hashpwd', '1')";
                 mysqli_query($conn, $query);
+                $monthid = date('n');
+                $year = date('Y');
+                $query = "SELECT * FROM `registerchart`";
+                $result = mysqli_query($conn, $query);
+                while($row = mysqli_fetch_array($result)) {
+                    if($monthid==$row['month_id'] and $monthid==$row['year']) {
+                        $query = "UPDATE registerchart SET registercount = registercount + 1 WHERE month_id='$monthid' AND year='$year'";
+                        mysqli_query($conn, $query);
+                        $msg = 'registered';
+                    }
+                }
+                if (!isset($msg)) {
+                    $query = "INSERT INTO `registerchart` (`month_id`, `year`, `registercount`) VALUE ('$monthid', '$year', '1')";
+                    mysqli_query($conn, $query);
+                }
                 $msg = 'registered';
             }
         }
