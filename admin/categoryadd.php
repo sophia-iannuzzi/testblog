@@ -1,8 +1,8 @@
 <?php
 session_start();
-include "connectionvar.php";
+include("../connectionvar.php");
 if (!isset($_SESSION['levelid'])) {
-  header("Location:logout.php");
+  header("Location:../logout.php");
 }
 if (isset($_POST['addcategory'])) {
     $categoryname = mysqli_real_escape_string($conn, $_POST['categoryname']);
@@ -12,14 +12,14 @@ if (isset($_POST['addcategory'])) {
     $catid = $conn->insert_id;
     $query = "INSERT INTO `categorychart` (`category_id`, `blogcount`) VALUE ('$catid', '0')";
     mysqli_query($conn, $query);
-    header("Location:index.php");
+    header("Location:admincategoriesmanage.php");
 }
 ?>
 
 <html>
 <body>
     <?php
-    require ('navbar.php');
+    require ('adminnav.php');
     ?>
     <h1> Add Category </h1>
     <form method = 'POST' action = "<?php echo $_SERVER['PHP_SELF']; ?>">

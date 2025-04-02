@@ -9,7 +9,7 @@ if (isset($_POST['editcategory']) and isset($_POST['editop'])) {
 }
 if (isset($_POST['addcategory'])) {
     unset($_SESSION['categoryid']);
-    header("Location:../categoryadd.php");
+    header("Location:categoryadd.php");
 }
 if (isset($_POST['status1']) and isset($_POST['editop'])) {
     $categoryid = $_POST['editop'];
