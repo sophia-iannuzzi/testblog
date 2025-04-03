@@ -1,24 +1,27 @@
 <?php
 session_start();
 include("connectionvar.php");
-categorylistquery.php");
+include("queries.php");
 if (!isset($_SESSION['levelid'])) {
   header("Location:logout.php");
 }
-if (isset($_POST['save']) and isset($_POST['title']) and isset($_POST['content']) and isset($_POST['category'])) {
+if (isset($_POST['save'])) {
   $userid = $_SESSION['userid'];
   $title = mysqli_real_escape_string($conn, $_POST['title']);
   $content = mysqli_real_escape_string($conn, $_POST['content']);
   $date = date('Y-m-d');
-  $query = "INSERT INTO `post` (`user_id`, `title`, `content`, `statuspost`, `date`) VALUE ('$userid', '$title', '$content', '0', '$date')";
-  mysqli_query($conn, $query);
-  $postid = $conn->insert_id;
-  foreach ($_POST['category'] as $categoryid) {
-    $query = "INSERT INTO `postcat`(`post_id`, `category_id`) VALUE ('$postid', '$categoryid')";
+  if(!isset($_POST['category'])) {
+    $msg = "please select category/categories";
+  } elseif(!empty($_POST['title']) and !empty($_POST['content']) and isset($_POST['category'])) {
+    $query = "INSERT INTO `post` (`user_id`, `title`, `content`, `statuspost`, `date`) VALUE ('$userid', '$title', '$content', '0', '$date')";
     mysqli_query($conn, $query);
-  } 
-  // header("Location:index.php");
-// temporary
+    $postid = $conn->insert_id;
+
+    foreach ($_POST['category'] as $categoryid) {
+      $query = "INSERT INTO `postcat`(`post_id`, `category_id`) VALUE ('$postid', '$categoryid')";
+      mysqli_query($conn, $query);
+    }
+  }
 }
 ?>
 
@@ -68,18 +71,22 @@ if (isset($_POST['save']) and isset($_POST['title']) and isset($_POST['content']
 <body>
 <?php require('navbar.php'); ?> <br>
 <form method = 'POST' action = "<?php echo $_SERVER['PHP_SELF']; ?>">
-  <input type = 'text' name = 'title' value = 'Write Title!'>
+  <input type = 'text' name = 'title' value = '<?php if(isset($title)) { echo $title;} else { echo"Write title!"; }?>'>
     <?php 
     while ($rows = mysqli_fetch_array($pcategories)) {
       echo "<input type = 'checkbox' name = 'category[]' value ='". $rows['category_id']. "'>". $rows['categoryname']. "</option>";
     } ?>
   </select>
   <div id="editor">
-      <textarea name = 'content' id='edit'>Write Blog!</textarea>
+      <textarea name = 'content' id='edit'><?php if(isset($content)) { echo $content;} else { echo"Write Blog!"; }?></textarea>
       <input type = 'submit' name = 'save' value = 'save' >
   </div>
   </form>
-
+  <?php
+  if (isset($msg)) {
+    echo "$msg";
+  }
+  ?>
   <script type="text/javascript"
     src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.js"></script>
   <script type="text/javascript"

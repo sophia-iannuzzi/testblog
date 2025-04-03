@@ -13,7 +13,7 @@ $userlistq = "SELECT * FROM `user` JOIN `level` ON user.level_id=level.level_id"
 $userlist = mysqli_query($conn, $userlistq);
 
 //comments
-$allcommentq = "SELECT * FROM `comment`";
+$allcommentq = "SELECT * FROM `comment` JOIN `post` ON comment.post_id=post.post_id";
 $allcomment = mysqli_query($conn, $allcommentq);
 if (isset($_SESSION['postid'])) {
     $postid = $_SESSION['postid'];

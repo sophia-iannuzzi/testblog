@@ -3,6 +3,9 @@ session_start();
 include("..\connectionvar.php");
 include("..\queries.php");
 require("adminerror.php");
+$editallcommentq = $allcommentq;
+$editallcommentq .= " ORDER BY comment.post_id ASC";
+$comments = mysqli_query($conn, $editallcommentq);
 if (isset($_POST['editcomment']) and isset($_POST['editop'])) {
     $_SESSION['commentid'] = $_POST['editop'];
     header("Location:commentedit.php");
@@ -30,19 +33,20 @@ if (isset($_POST['status2']) and isset($_POST['editop'])) {
         <tr>
         <th> Select </th>    
         <th> ID </th>
+        <th> Post ID </th>
         <th> Title </th>
         <th> Publish Status </th>
         <th> Comment </th>
         </tr>
         <form method = 'POST' action = "<?php echo $_SERVER['PHP_SELF']; ?>">
         <?php
-        while ($row = mysqli_fetch_array($allcomment)) {
+        while ($row = mysqli_fetch_array($comments)) {
             if ($row['status']=='0') {
                 $status = "unpublished";
             } else {
                 $status = "published";
             }
-            echo "<tr> <td> <input type = 'radio' name = 'editop' value = '". $row['comment_id']. "'> </td> <td>". $row['comment_id']. "</td> <td>". $row['title']. "</td> <td>". $status. "</td> <td>". $row['content']. "</td> </tr>";
+            echo "<tr> <td> <input type = 'radio' name = 'editop' value = '". $row['comment_id']. "'> </td> <td>". $row['comment_id']. "</td> <td>". $row['post_id']. "</td> <td>". $row['title']. "</td> <td>". $status. "</td> <td>". $row['comcontent']. "</td> </tr>";
         }
         ?>
     </table>

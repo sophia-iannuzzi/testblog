@@ -15,7 +15,7 @@ $query = "SELECT * FROM `comment` WHERE comment_id=$commentid";
 $result = mysqli_query($conn, $query);
 while ($rows = mysqli_fetch_array($result)) {
     $title = $rows['title'];
-    $content = $rows['content'];
+    $content = $rows['comcontent'];
 }
 ?>
 <html>

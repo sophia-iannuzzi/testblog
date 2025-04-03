@@ -10,11 +10,10 @@ if (isset($_POST['submit'])) {
   $content = mysqli_real_escape_string($conn, $_POST['content']);
   $query = "UPDATE post SET title= '$title', content= '$content' WHERE post_id= '$postid'";
   mysqli_query($conn, $query);
-  if($_SESSION['levelid'] =='2') {
+  if($_SESSION['loc'] =='admin') {
     header("Location:admin/adminpostmanage.php");
-  } elseif ($_SESSION['levelid'] =='1') {
-    // header("Location:");
-// blank for now
+  } elseif ($_SESSION['loc'] =='yourpost') {
+    header("Location:yourpost.php");
   }
 }
 $query = "SELECT * FROM `post` WHERE post.post_id=$postid";
