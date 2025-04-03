@@ -1,5 +1,6 @@
 <html>
 <body>
+    <form method = 'POST' action = "<?php echo $_SERVER['PHP_SELF']; ?>">
     <select name = 'filterop'>
         <option value = '0'>all</option>
         <?php
@@ -9,5 +10,6 @@
         ?>
     </select>
     <input type = 'submit' name = 'filter' value = 'filter'>   
+    </form>
 </body>
 </html>

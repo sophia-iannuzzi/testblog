@@ -15,6 +15,10 @@ require("../postop.php");
 <body>
     <?php require("adminnav.php"); ?>
     <h1> Admin - Manage Posts </h1>
+    <?php
+    require("../postsearch.php");
+    require("../filtercat.php");
+    ?>
     <table style = "border:6px solid black;">
         <tr>
             <th> Select </th>
@@ -39,9 +43,6 @@ require("../postop.php");
     <input type = 'submit' name = 'editpost' value = 'edit post' >
     <input type = 'submit' name = 'status0' value = 'unpublish post' >
     <input type = 'submit' name = 'status1' value = 'publish post' > <br>
-    <?php
-    require("../filtercat.php");
-    ?>
     </form>
 </body>
 </html>

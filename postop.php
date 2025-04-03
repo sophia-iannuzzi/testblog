@@ -60,4 +60,28 @@ if(isset($_POST['filter'])) {
         $postfil = mysqli_query($conn, $pubnewpostlistq);
     }
 }
+
+if (isset($_POST['search'])) {
+    $searchpostlistq = $allpostlistq;
+    $input = mysqli_real_escape_string($conn, $_POST['input']);
+    $input = strtolower($input);
+    if ($_SESSION['loc'] = 'admin') {
+        $postlist = $allpostlist;
+    } else {
+        $postlist = $pubpostlist;
+    }
+    $c = 0;
+    while($row = mysqli_fetch_array($postlist)) {
+        $title = $row['title'];
+        $title = strtolower($title);
+        $postid = $row['post_id'];
+        if (str_contains($title, $input) and $c!=0) {
+            $searchpostlistq .= " OR post.post_id='$postid'";
+        } elseif (str_contains($title, $input) and $c==0) {
+            $searchpostlistq .= " WHERE post.post_id='$postid'";
+        }
+        $c++;
+    }
+    $postfil = mysqli_query($conn, $searchpostlistq);
+}
 ?>
