@@ -3,23 +3,18 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     #piechart {
-      width: 300;
-      height: 300;
+      width: 200;
+      height: 200;
     } 
 
     #barchart {
-      width: 500;
-      height: 500;
+      width: 200;
+      height: 200;
     }
   </style>
 </head>
 
 <body>
-<h1> Published posts per category </h1>
-<canvas id="piechart"></canvas>
-
-<h1> Registers per month in <?php $date = date('Y'); echo $date; ?> </h1>
-<canvas id="barchart"></canvas>
 
 <?php
 include("../connectionvar.php");
