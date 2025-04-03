@@ -62,26 +62,18 @@ if(isset($_POST['filter'])) {
 }
 
 if (isset($_POST['search'])) {
-    $searchpostlistq = $allpostlistq;
     $input = mysqli_real_escape_string($conn, $_POST['input']);
-    $input = strtolower($input);
-    if ($_SESSION['loc'] = 'admin') {
-        $postlist = $allpostlist;
+    $searchpostlistq = $allpostlistq;
+    $searchpostlistq .= " WHERE";
+    if($_SESSION['loc'] == 'admin') {
+        $searchpostlistq .= " title LIKE '%$input%'";
     } else {
-        $postlist = $pubpostlist;
-    }
-    $c = 0;
-    while($row = mysqli_fetch_array($postlist)) {
-        $title = $row['title'];
-        $title = strtolower($title);
-        $postid = $row['post_id'];
-        if (str_contains($title, $input) and $c!=0) {
-            $searchpostlistq .= " OR post.post_id='$postid'";
-        } elseif (str_contains($title, $input) and $c==0) {
-            $searchpostlistq .= " WHERE post.post_id='$postid'";
-        }
-        $c++;
+        $searchpostlistq .= " post.user_id='$userid' AND title LIKE '%$input%'";
     }
     $postfil = mysqli_query($conn, $searchpostlistq);
+    $check = mysqli_fetch_array($postfil);
+    if (!isset($check)) {
+        $msg = "no content found";
+    }
 }
 ?>

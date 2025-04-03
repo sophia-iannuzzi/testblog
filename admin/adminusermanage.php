@@ -1,7 +1,7 @@
 <?php
 session_start();
 include("../connectionvar.php");
-include("../userlistquery.php");
+include("../queries.php");
 require("adminerror.php");
 if (isset($_POST['edituser']) and isset($_POST['editop'])) {
     $_SESSION['usereid'] = $_POST['editop'];

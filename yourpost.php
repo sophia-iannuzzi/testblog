@@ -5,18 +5,26 @@ if (!isset($_SESSION['levelid'])) {
     header("Location:bloglogout.php");
 }
 include("connectionvar.php");
-include("categorylistquery.php");
-include("postquery.php");
+include("queries.php");
+include("queries.php");
 $userid = $_SESSION['userid'];
-$allpostlistq .= " WHERE post.user_id='$userid' ORDER BY post_id ASC;";
-$postfil = mysqli_query($conn, $allpostlistq) or exit('bad query');
+$searchpostlistq = $allpostlistq;
+$searchpostlistq .= " WHERE post.user_id='$userid' ORDER BY post_id ASC;";
+$postfil = mysqli_query($conn, $searchpostlistq) or exit('bad query');
 require("postop.php");
 ?>
 
 <html>
     <?php require("navbar.php"); ?>
 <body>
-
+    <h1> Your Posts! </h1>
+    <?php
+    if (isset($msg)) {
+        echo "$msg";
+    }
+    require("postsearch.php");
+    require("filtercat.php");
+    ?>
 <table style = "border:6px solid black;">
         <tr>
             <th> Select </th>
@@ -41,9 +49,6 @@ require("postop.php");
     <input type = 'submit' name = 'editpost' value = 'edit post' >
     <input type = 'submit' name = 'status0' value = 'unpublish post' >
     <input type = 'submit' name = 'status1' value = 'publish post' > <br>
-    <?php
-    require("filtercat.php");
-    ?>
     </form>
 </body>
 </html>

@@ -1,6 +1,6 @@
 <?php
 include("connectionvar.php");
-include("userlistquery.php");
+include("queries.php");
 if (isset($_POST['registerbutton'])) {
     $fname = mysqli_real_escape_string($conn,$_POST['fname']);
     $lname = mysqli_real_escape_string($conn,$_POST['lname']);

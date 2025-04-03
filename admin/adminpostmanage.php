@@ -2,8 +2,8 @@
 session_start();
 require("adminerror.php");
 include("../connectionvar.php");
-include("../postquery.php");
-include("../categorylistquery.php");
+include("../queries.php");
+include("../queries.php");
 $_SESSION['loc'] = 'admin';
 $postlistq = $allpostlistq;
 $postlistq .= " ORDER BY post_id ASC;";
@@ -16,6 +16,9 @@ require("../postop.php");
     <?php require("adminnav.php"); ?>
     <h1> Admin - Manage Posts </h1>
     <?php
+    if (isset($msg)) {
+        echo "$msg";
+    }
     require("../postsearch.php");
     require("../filtercat.php");
     ?>

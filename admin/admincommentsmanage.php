@@ -1,9 +1,8 @@
 <?php
 session_start();
 include("..\connectionvar.php");
+include("..\queries.php");
 require("adminerror.php");
-$query = "SELECT  * FROM `comment`";
-$comment = mysqli_query($conn, $query) or exit('bad query');
 if (isset($_POST['editcomment']) and isset($_POST['editop'])) {
     $_SESSION['commentid'] = $_POST['editop'];
     header("Location:commentedit.php");
@@ -37,7 +36,7 @@ if (isset($_POST['status2']) and isset($_POST['editop'])) {
         </tr>
         <form method = 'POST' action = "<?php echo $_SERVER['PHP_SELF']; ?>">
         <?php
-        while ($row = mysqli_fetch_array($comment)) {
+        while ($row = mysqli_fetch_array($allcomment)) {
             if ($row['status']=='0') {
                 $status = "unpublished";
             } else {

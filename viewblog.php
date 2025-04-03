@@ -4,9 +4,9 @@ if (!isset($conn)) {
     session_start();
     $location = '1';
 }
-include("categorylistquery.php");
-include("postquery.php");
-include("commentquery.php");
+include("queries.php");
+include("queries.php");
+include("queries.php");
 $postid = $_SESSION['postid'];
 $pquery = "SELECT * FROM `post` JOIN `user` ON post.user_id=user.user_id WHERE post.post_id=$postid";
 $catquery = "SELECT * FROM `postcat` JOIN `category` ON postcat.category_id=category.category_id WHERE postcat.post_id=$postid AND category.status='1'";

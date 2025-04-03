@@ -1,7 +1,7 @@
 <?php
 session_start();
 include("../connectionvar.php");
-include("../userlistquery.php");
+include("../queries.php");
 require("adminerror.php");
 if (isset($_SESSION['usereid'])) {
     $usereid = $_SESSION['usereid'];
