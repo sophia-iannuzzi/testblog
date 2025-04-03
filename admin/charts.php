@@ -18,7 +18,7 @@
 <h1> Published posts per category </h1>
 <canvas id="piechart"></canvas>
 
-<h1> Registers per momth </h1>
+<h1> Registers per month in <?php $date = date('Y'); echo $date; ?> </h1>
 <canvas id="barchart"></canvas>
 
 <?php
@@ -39,7 +39,7 @@ $result = mysqli_query($conn, $query);
          ?>
          ],
       datasets: [{
-        label: '# of Votes',
+        label: '# of posts in category',
         data: [
          <?php
          $query = "SELECT * FROM `category` JOIN `categorychart` ON category.category_id=categorychart.category_id";
@@ -61,8 +61,6 @@ $result = mysqli_query($conn, $query);
 
 <?php
 $year = date('Y');
-$query = "SELECT * FROM `month` JOIN `registerchart` ON month.month_id=registerchart.month_id WHERE year='$year'";
-$amount = mysqli_query($conn, $query);
 $query = "SELECT * FROM `month`";
 $month = mysqli_query($conn, $query);
 ?>
@@ -71,34 +69,28 @@ $month = mysqli_query($conn, $query);
   new Chart(ctx2, {
     type: 'bar',
     data: {
-      labels: [
-        <?php
-        while($row = mysqli_fetch_array($month)) {
-          echo "'". $row['monthname']. "',";
-       }
-        ?>
-      ],
+      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
       datasets: [{
-        label: 'Register Count',
+        label: 'Amount of Registers',
         data: [
           <?php
-          $rows = mysqli_fetch_array($amount);
-          echo $rows['registercount']. ", ";
-          while($rows = mysqli_fetch_array($amount)) {
-            $nummonthid = $rows['month_id'];
-            while ($row = mysqli_fetch_array($month)) {
-              $amonthid = $row['month_id'];
-              if($amonthid != $nummonthid) {
-                echo "1, ";
-              } else {
-              // echo $rows['registercount']. ",";
-              echo "1, ";
+          while($row = mysqli_fetch_array($month)) {
+            $query = "SELECT * FROM `month` JOIN `registerchart` ON month.month_id=registerchart.month_id WHERE year='$year' ORDER BY registerchart.month_id";
+            $amount = mysqli_query($conn, $query);
+            $c = 0;
+            while ($rows = mysqli_fetch_array($amount)) {
+              if($rows['month_id'] == $row['month_id']) {
+                echo $rows['registercount']. ", ";
+                $c = 1;
               }
+            }
+            if($c == 0) {
+              echo "0, ";
             }
           }
           ?>
         ],
-        borderWidth: 1
+        borderWidth: 4
       }]
     },
     options: {

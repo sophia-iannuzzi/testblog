@@ -5,8 +5,9 @@ include("../connectionvar.php");
 include("../postquery.php");
 include("../categorylistquery.php");
 $_SESSION['loc'] = 'admin';
-$allpostlistq .= " ORDER BY post_id ASC;";
-$postfil = mysqli_query($conn, $allpostlistq) or exit('bad query');
+$postlistq = $allpostlistq;
+$postlistq .= " ORDER BY post_id ASC;";
+$postfil = mysqli_query($conn, $postlistq) or exit('bad query');
 require("../postop.php");
 ?>
 
