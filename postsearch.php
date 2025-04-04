@@ -1,8 +1,9 @@
 <html>
 <body>
-    <form method = 'POST' action = "<?php echo $_SERVER['PHP_SELF']; ?>">
-    <input type = 'text' name = 'input' value = 'search titles'>
-    <input type = 'submit' name = 'search' value = 'search'>
-    </form>
+<link href="admin/css/sb-admin-2.min.css" rel="stylesheet">
+    <input class = "dropdown-header" type = 'text' name = 'input' value = 'search titles'>
+    <button class="btn-icon-split" type = 'submit' name = 'search'>
+        <span class="text">Search</span>
+    </button>
 </body>
 </html>

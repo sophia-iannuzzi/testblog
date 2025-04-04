@@ -67,13 +67,11 @@ if (isset($_POST['search'])) {
     $searchpostlistq .= " WHERE";
     if($_SESSION['loc'] == 'admin') {
         $searchpostlistq .= " title LIKE '%$input%'";
-    } else {
+    } elseif ($_SESSION['loc'] == 'yourpost') {
         $searchpostlistq .= " post.user_id='$userid' AND title LIKE '%$input%'";
+    } else {
+        $searchpostlistq .= " statuspost='1' AND title LIKE '%$input%'";
     }
     $postfil = mysqli_query($conn, $searchpostlistq);
-    $check = mysqli_fetch_array($postfil);
-    if (!isset($check)) {
-        $msg = "no content found";
-    }
 }
 ?>

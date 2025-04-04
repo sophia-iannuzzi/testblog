@@ -1,6 +1,8 @@
 <?php
 session_start();
 require("adminerror.php");
+include("../connectionvar.php");
+include("../queries.php");
 ?>
 
 <!DOCTYPE html>
@@ -30,60 +32,9 @@ require("adminerror.php");
     <!-- Page Wrapper -->
     <div id="wrapper">
 
-        <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
-            <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="../index.php">
-                <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fa fa-tractor"></i>
-                </div>
-                <div class="sidebar-brand-text mx-3"> Farming Love </div>
-            </a>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Manage
-            </div>
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>Options</span>
-                </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Manage Options:</h6>
-                        <a class="collapse-item" href="adminpostmanage.php">Posts</a>
-                        <a class="collapse-item" href="admincategoriesmanage.php">Categories</a>
-                        <a class="collapse-item" href="admincommentsmanage.php">Comments</a>
-                        <a class="collapse-item" href="adminusermanage.php">Users</a>
-                    </div>
-                </div>
-            </li>
-
-            <!-- Nav Item - Charts -->
-            <li class="nav-item">
-                <a class="nav-link" href="http://localhost/Blog%20assignment/testblog/bloglogout.php">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Logout</span></a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider d-none d-md-block">
-
-            <!-- Sidebar Toggler (Sidebar) -->
-            <div class="text-center d-none d-md-inline">
-                <button class="rounded-circle border-0" id="sidebarToggle"></button>
-            </div>
-
-        </ul>
-        <!-- End of Sidebar -->
+        <?php
+        require("adminsidebar.php");
+        ?>
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
@@ -94,64 +45,99 @@ require("adminerror.php");
                 <div class="container-fluid">
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800"> <br> Welcome Admin!</h1>
+                        <h1 class="h3 mb-0 text-gray-800"> <br>Welcome Admin!</h1>
                     </div>
 
-                    <!-- Content Row -->
                     <div class="row">
-                        <!-- unpub cats -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-success shadow h-100 py-2">
+
+                        <div class="col-xl-6 col-md-6 mb-4">
+                            <div class="card border-left-info shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                Unpublished Posts</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">PUT NUM HERE</div>
+                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Unpublished Posts
+                                            </div>
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col-auto">
+                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
+                                                    <?php
+                                                    $c = 0;
+                                                    while($row = mysqli_fetch_array($unpostlist)) {
+                                                        $c++;
+                                                    }
+                                                    echo $c;
+                                                    ?>
+                                                    </div>
+                                                </div>
+                                                <div class="col">
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fa fa-paper-plane fa-3x"></i>
+                                            <i class="fas fa-paper-plane fa-2x text-gray-300"></i>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                        </div>
 
-                        </div><div class="col-xl-3 col-md-6 mb-4">
+
+                        <div class="col-xl-6 col-md-6 mb-4">
                             <div class="card border-left-warning shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                                Unpublished Categories</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">PUT NUM HERE</div>
+                                                Unpublished Categories
+                                            </div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                            <?php
+                                            $c = 0;
+                                            while($row = mysqli_fetch_array($unpubcategory)) {
+                                                $c++;
+                                            }
+                                            echo $c;
+                                            ?>
+                                            </div>
                                         </div>
                                         <div class="col-auto">
-                                        <i class="fa fa-box fa-3x"></i>
+                                            <i class="fas fa-box fa-2x text-gray-300"></i>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <!-- End of Main Content -->
-            <div class="card-body">
-                <div class="chart-area">
-                    <canvas id="piechart"></canvas>
-                </div>
-            </div>
 
-            <div class="card-body">
-                <div class="chart-area">
-                    <canvas id="barchart"></canvas>
+                    <div class = "row">
+                        <div class="col-xl-6 col-md-6 mb-4">
+                            <div class="card-body">
+                            <div class="h10 font-weight-bold text-dark text-uppercase mb-1">Published Posts per Category</div>
+                                <div class="chart-area">
+                                    <canvas id="piechart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-6 col-md-6 mb-4">
+                            <div class="card-body">
+                            <div class="h10 font-weight-bold text-dark text-uppercase mb-1">Amount of Registers per Month</div>
+                                <div class="chart-area">
+                                    <canvas id="barchart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <?php
+                    require("charts.php");
+                    ?>
+                        
                 </div>
-            </div>
-            <?php
-                require("charts.php");
-            ?>
             </div>
             
+
+        <div>  
         <!-- End of Content Wrapper -->
     </div>
     <!-- End of Page Wrapper -->

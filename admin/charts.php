@@ -3,13 +3,13 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     #piechart {
-      width: 200;
-      height: 200;
+      width: 300px;
+      height: 300px;
     } 
 
     #barchart {
-      width: 200;
-      height: 200;
+      width: 400px;
+      height: 400px;
     }
   </style>
 </head>
@@ -17,7 +17,6 @@
 <body>
 
 <?php
-include("../connectionvar.php");
 $query = "SELECT * FROM `category` JOIN `categorychart` ON category.category_id=categorychart.category_id";
 $result = mysqli_query($conn, $query);
 ?>
@@ -48,7 +47,7 @@ $result = mysqli_query($conn, $query);
       }]
     },
     options: {
-      responsive: false,
+      responsive: true,
       maintainAspectRation: false
     }
   });
@@ -89,7 +88,7 @@ $month = mysqli_query($conn, $query);
       }]
     },
     options: {
-      responsive: false,
+      responsive: true,
       maintainAspectRation: false
     }
   });

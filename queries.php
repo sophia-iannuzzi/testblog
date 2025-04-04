@@ -26,5 +26,7 @@ $categoryq = "SELECT * FROM `category`";
 $categories = mysqli_query($conn, $categoryq);
 $pubcategoryq = "SELECT * FROM `category` WHERE status='1'";
 $pcategories = mysqli_query($conn, $pubcategoryq);
+$unpubcategoryq = "SELECT * FROM `category` WHERE status='0'";
+$unpubcategory = mysqli_query($conn, $unpubcategoryq);
 
 ?>

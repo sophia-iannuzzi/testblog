@@ -40,8 +40,8 @@ if (isset($_POST['search'])) {
     if (isset($msg)) {
         echo "$msg";
     }
-    require("postsearch.php");
-    require("filtercat.php");
+    // require("postsearch.php");
+    // require("filtercat.php");
     ?>
     <div> 
         <table style = "border:6px solid black;">
