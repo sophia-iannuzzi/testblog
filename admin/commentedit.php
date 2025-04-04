@@ -4,11 +4,10 @@ include '..\connectionvar.php';
 require("adminerror.php");
 $commentid = $_SESSION['commentid'];
 if (isset($_POST['savebutton'])) {
-    $title = $_POST['title'];
-    $content = $_POST['content'];
-    $result = $conn->prepare("UPDATE comment SET title=?, content=? WHERE comment_id=?");
-    $result->bind_param("ssi", $title, $content, $commentid);
-    $result->execute();
+    $title = mysqli_real_escape_string($conn, $_POST['title']);
+    $content =  mysqli_real_escape_string($conn, $_POST['content']);
+    $query = "UPDATE comment SET title='$title', comcontent='$content' WHERE comment_id='$commentid'";
+    mysqli_query($conn, $query);
     header("Location:admincommentsmanage.php");
 }
 $query = "SELECT * FROM `comment` WHERE comment_id=$commentid";

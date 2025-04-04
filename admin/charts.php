@@ -3,8 +3,8 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     #piechart {
-      width: 300px;
-      height: 300px;
+      width: 200px;
+      height: 200px;
     } 
 
     #barchart {

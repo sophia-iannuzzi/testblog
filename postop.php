@@ -1,4 +1,5 @@
 <?php
+$userid = $_SESSION['userid'];
 if (isset($_POST['addpost'])) {
     if ($_SESSION['loc']=='admin') {
         header("Location:../addpost.php");
@@ -54,10 +55,19 @@ if (isset($_POST['status1']) and isset($_POST['editop'])) {
 }
 
 if(isset($_POST['filter'])) {
-    if ($_POST['filterop']!='0') {
+    if ($_SESSION['loc']=='admin') {
+
+        if ($_POST['filterop']!='0') {
+            $catid = $_POST['filterop'];
+            $allpostq = $allpostlistq;
+            $allpostq .= " WHERE category.category_id='$catid'";
+            $postfil = mysqli_query($conn, $allpostq);
+        }
+    } elseif ($_SESSION['loc']=='yourpost') {
         $catid = $_POST['filterop'];
-        $pubnewpostlistq = "SELECT * FROM `postcat` JOIN `post` ON postcat.post_id=post.post_id JOIN `user` ON post.user_id=user.user_id WHERE category_id='$catid'";
-        $postfil = mysqli_query($conn, $pubnewpostlistq);
+        $allpostq = $allpostlistq;
+        $allpostq .= " WHERE post.user_id='$userid' AND category.category_id='$catid'";
+        $postfil = mysqli_query($conn, $allpostq);
     }
 }
 

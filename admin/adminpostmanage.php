@@ -5,7 +5,7 @@ include("../connectionvar.php");
 include("../queries.php");
 $_SESSION['loc'] = 'admin';
 $postlistq = $allpostlistq;
-$postlistq .= " ORDER BY post_id ASC;";
+$postlistq .= " ORDER BY post.post_id ASC;";
 $postfil = mysqli_query($conn, $postlistq) or exit('bad query');
 require("../postop.php");
 ?>
@@ -92,7 +92,7 @@ if (isset($msg)) {
                     </div>
 
                     <div class = "row">
-                        <div class="col-xl-6 col-md-6 mb-4">
+                        <div class="col-xl-4 col-md-4 mb-4">
                             <form method = 'POST' action = "<?php echo $_SERVER['PHP_SELF']; ?>">
                             <button class="btn-icon-split" type = 'submit' name = 'addpost'>
                                 <span class="text">Add Post</span>
@@ -122,31 +122,31 @@ if (isset($msg)) {
                         
                     </div>
 
-                    <div class = "row">
-                        <div class="col-xl-12 col-md-12 mb-4">
-
-                            <table>
-                                <tr>
-                                    <th class="h5 mb-0 mr-3 font-weight-bold text-gray-800"> Select </th>
-                                    <th class="h5 mb-0 mr-3 font-weight-bold text-gray-800"> ID </th>
-                                    <th class="h5 mb-0 mr-3 font-weight-bold text-gray-800"> Title </th>
-                                    <th class="h5 mb-0 mr-3 font-weight-bold text-gray-800"> Publish Status </th>
-                                    <th class="h5 mb-0 mr-3 font-weight-bold text-gray-800"> Publish Date </th>
-                                </tr>
-                                <?php
-                                while ($row = mysqli_fetch_array($postfil)) {
-                                    if ($row['statuspost']=='0') {
-                                        $status = "unpublished";
-                                    } elseif ($row['statuspost']=='1') {
-                                        $status = "published";
-                                    }
-                                    echo "<tr> <td> <input type = 'radio' name = 'editop' value = '". $row['post_id']. "'> </td> <td>". $row['post_id']. "</td> <td>". $row['title']. "</td> <td>". $status. "</td> <td>". $row['date']. "</td> </tr>";
+                    <div class="col-xl-12 col-md-12 mb-4">
+                        <table class = 'table'>
+                            <tr>
+                                <th class="h5 mb-0 mr-3 font-weight-bold text-gray-800"> Select </th>
+                                <th class="h5 mb-0 mr-3 font-weight-bold text-gray-800"> ID </th>
+                                <th class="h5 mb-0 mr-3 font-weight-bold text-gray-800"> Title </th>
+                                <th class="h5 mb-0 mr-3 font-weight-bold text-gray-800"> Category </th>
+                                <th class="h5 mb-0 mr-3 font-weight-bold text-gray-800"> Publish Status </th>
+                                <th class="h5 mb-0 mr-3 font-weight-bold text-gray-800"> Publish Date </th>
+                            </tr>
+                            <?php
+                            while ($row = mysqli_fetch_array($postfil)) {
+                                if ($row['statuspost']=='0') {
+                                    $status = "unpublished";
+                                } elseif ($row['statuspost']=='1') {
+                                    $status = "published";
                                 }
-                                ?>
-                            </table>
-                        </div>
+                                echo "<tr> <td> <input type = 'radio' name = 'editop' value = '". $row['post_id']. "'> </td> <td>". $row['post_id']. "</td> <td>". $row['title']. "</td> <td>". $row['categoryname']. "</td> <td>". $status. "</td> <td>". $row['date']. "</td> </tr>";
+                            }
+                            ?>
+                        </table>
                     </div>
-                    </form>
+
+                </form>
+                </div>
             </div>
         </div>
         <!-- End of Content Wrapper -->

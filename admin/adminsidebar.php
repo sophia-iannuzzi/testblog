@@ -17,24 +17,26 @@
     Manage
 </div>
 
-<!-- Nav Item - Pages Collapse Menu -->
 <li class="nav-item">
-    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-        aria-expanded="true" aria-controls="collapseTwo">
-        <i class="fas fa-fw fa-cog"></i>
-        <span>Options</span>
-    </a>
-    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-        <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Manage Options:</h6>
-            <a class="collapse-item" href="adminpostmanage.php">Posts</a>
-            <a class="collapse-item" href="admincategoriesmanage.php">Categories</a>
-            <a class="collapse-item" href="admincommentsmanage.php">Comments</a>
-            <a class="collapse-item" href="adminusermanage.php">Users</a>
-        </div>
-    </div>
+    <a class="nav-link" href="adminpostmanage.php">
+    <i class="fas fa-paper-plane"></i>
+        <span>Posts</span></a>
 </li>
-
+<li class="nav-item">
+    <a class="nav-link" href="admincategoriesmanage.php">
+    <i class="fas fa-box"></i>
+        <span>Categories</span></a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="admincommentsmanage.php">
+    <i class="fa fa-comment"></i>
+        <span>Comments</span></a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="adminusermanage.php">
+    <i class="fa fa-user"></i>
+        <span>Users</span></a>
+</li>
 <li class="nav-item">
     <a class="nav-link" href="adminsplash.php">
     <i class="fa fa-star"></i>
@@ -43,7 +45,7 @@
 
 <li class="nav-item">
     <a class="nav-link" href="../bloglogout.php">
-    <i class="fa fa-user"></i>
+    <i class="fa fa-arrow-right"></i>
         <span>Logout</span></a>
 </li>
 

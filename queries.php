@@ -5,7 +5,7 @@ $unpostlistq = "SELECT * FROM `post` JOIN `user` ON post.user_id=user.user_id WH
 $unpostlist = mysqli_query($conn, $unpostlistq);
 $pubpostlistq = "SELECT * FROM `post` JOIN `user` ON post.user_id=user.user_id WHERE statuspost='1'";
 $pubpostlist = mysqli_query($conn, $pubpostlistq);
-$allpostlistq = "SELECT * FROM `post` JOIN `user` ON post.user_id=user.user_id";
+$allpostlistq = "SELECT * FROM `post` JOIN `user` ON post.user_id=user.user_id JOIN `postcat` ON post.post_id=postcat.post_id JOIN `category` ON postcat.category_id=category.category_id";
 $allpostlist = mysqli_query($conn, $allpostlistq);
 
 //users
