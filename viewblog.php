@@ -43,7 +43,7 @@ if (isset($location)) {
     <p> <br> 
     <?php
     while ($crow = mysqli_fetch_array($postcomment)) {
-        echo " Comment by: <br>". $crow['fname']. " ". $crow['lname']. "<br>". $crow['title']. "<p>". $crow['comcontent']. "</p>";
+        echo " Comment by: <br>". $crow['fname']. " ". $crow['lname']. "<br>". $crow['comtitle']. "<p>". $crow['comcontent']. "</p>";
     } ?> </p>
 </body>
 </html>

@@ -111,12 +111,10 @@ include("../queries.php");
                     </div>
 
                     <div class = "row">
-                        <div class="col-xl-6 col-md-6 mb-4">
+                        <div class="col-xl-4 col-md-6 mb-4">
                             <div class="card-body">
                             <div class="h10 font-weight-bold text-dark text-uppercase mb-1">Published Posts per Category</div>
-                                <div class="chart-area">
-                                    <canvas id="piechart"></canvas>
-                                </div>
+                                <canvas id="piechart"></canvas>
                             </div>
                         </div>
 

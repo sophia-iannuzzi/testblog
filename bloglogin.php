@@ -9,11 +9,22 @@ if (isset($_POST['loginbutton'])) {
 
         while ($row = mysqli_fetch_array($userlist)) {
             if ($row['username'] == $username) {
+
                 if (password_verify($pwd, $row['hash'])) {
-                    $_SESSION['levelid'] = $row['level_id'];
-                    $_SESSION['username'] = $username;
-                    $_SESSION['userid'] = $row['user_id'];
-                    header("Location:index.php");
+                    $msg = 'fs';
+                    $query = "SELECT * FROM `user` WHERE username='$username'";
+                    $result = mysqli_query($conn, $query);
+                    while($rows = mysqli_fetch_array($result)) {
+                        if($rows['statususer']=='0') {
+                            $msg = 'deactivated user';
+                            break 2;
+                        } else {
+                            $_SESSION['levelid'] = $row['level_id'];
+                            $_SESSION['username'] = $username;
+                            $_SESSION['userid'] = $row['user_id'];
+                            header("Location:index.php");
+                        }
+                    }
                 } else {
                     $msg = 'incorrect password';
                     break;

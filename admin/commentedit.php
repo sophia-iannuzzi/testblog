@@ -6,14 +6,14 @@ $commentid = $_SESSION['commentid'];
 if (isset($_POST['savebutton'])) {
     $title = mysqli_real_escape_string($conn, $_POST['title']);
     $content =  mysqli_real_escape_string($conn, $_POST['content']);
-    $query = "UPDATE comment SET title='$title', comcontent='$content' WHERE comment_id='$commentid'";
+    $query = "UPDATE comment SET comtitle='$title', comcontent='$content' WHERE comment_id='$commentid'";
     mysqli_query($conn, $query);
     header("Location:admincommentsmanage.php");
 }
 $query = "SELECT * FROM `comment` WHERE comment_id=$commentid";
 $result = mysqli_query($conn, $query);
 while ($rows = mysqli_fetch_array($result)) {
-    $title = $rows['title'];
+    $title = $rows['comtitle'];
     $content = $rows['comcontent'];
 }
 ?>

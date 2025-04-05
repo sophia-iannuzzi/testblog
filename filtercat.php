@@ -1,8 +1,8 @@
 <html>
 <body>
 <link href="admin/css/sb-admin-2.min.css" rel="stylesheet">
-    <div class = "row">
-        <div class="col-xl-6 col-md-12 mb-3">
+
+        <div class="col-xl-3 col-md-12 mb-3 mr-0">
         <select class = "dropdown" name = 'filterop'>
             <option class = "dropdown-header" value = '0'>all</option>
             <?php
@@ -11,7 +11,8 @@
             }
             ?>
         </select>
-    </div>
+        </div>
+
     <div class="col-xl-6 col-md-12 mb-3">
         <button class="btn-icon-split" type = 'submit' name = 'filter'>
             <span class="text">Filter by Category</span>

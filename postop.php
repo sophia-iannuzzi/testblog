@@ -72,7 +72,8 @@ if(isset($_POST['filter'])) {
 }
 
 if (isset($_POST['search'])) {
-    $input = mysqli_real_escape_string($conn, $_POST['input']);
+    $string = $_POST['input'];
+    $input = mysqli_real_escape_string($conn, $string);
     $searchpostlistq = $allpostlistq;
     $searchpostlistq .= " WHERE";
     if($_SESSION['loc'] == 'admin') {

@@ -3,35 +3,41 @@ session_start();
 include("../connectionvar.php");
 include("../queries.php");
 require("adminerror.php");
-if (isset($_POST['editcategory']) and isset($_POST['editop'])) {
-    $_SESSION['categoryid'] = $_POST['editop'];
-    header("Location:categoryedit.php");
+if (isset($_SESSION['usereid'])) {
+    $usereid = $_SESSION['usereid'];
 }
-if (isset($_POST['addcategory'])) {
-    unset($_SESSION['categoryid']);
-    header("Location:categoryadd.php");
+$query = "SELECT * FROM `user` JOIN `level` ON user.level_id=level.level_id WHERE user_id=$usereid";
+$result = mysqli_query($conn, $query);
+while ($row = mysqli_fetch_array($result)) {
+    $levelid = $row['level_id'];
+    $fname = $row['fname'];
+    $lname = $row['lname'];
+    $username = $row['username'];
 }
-if (isset($_POST['status0']) and isset($_POST['editop'])) {
-    $categoryid = $_POST['editop'];
-    $query = "UPDATE category SET status='0' WHERE category_id=$categoryid";
-    mysqli_query($conn, $query);
-    header("Location:admincategoriesmanage.php");
-}
-if (isset($_POST['status1']) and isset($_POST['editop'])) {
-    $categoryid = $_POST['editop'];
-    $date = date('Y-m-d');
-    $query = "UPDATE category SET status='1' WHERE category_id=$categoryid";
-    mysqli_query($conn, $query);
-    header("Location:admincategoriesmanage.php");
+if (isset($_POST['savebutton'])) {
+    $fnamenew = mysqli_real_escape_string($conn, $_POST['fname']);
+    $lnamenew = mysqli_real_escape_string($conn, $_POST['lname']);
+    $usernamenew = mysqli_real_escape_string($conn, $_POST['username']);
+    $levelid = $_POST['levelop'];
+    if (!empty($fnamenew) and !empty($lnamenew) and !empty($usernamenew)) {
+        if ($usernamenew != $username) {
+            while ($row = mysqli_fetch_array($userlist)) {
+                if ($usernamenew==$row['username']) {
+                    $msg = "username taken";
+                    break;
+                }
+            }
+        } 
+        if (!isset($msg)) {
+            $query = "UPDATE user SET fname = '$fnamenew', lname = '$lnamenew', username = '$usernamenew', level_id='$levelid' WHERE user_id='$usereid'";
+            mysqli_query($conn, $query);
+            header("Location:adminusermanage.php");
+        }
+    } else {
+        $msg = "please fill in fields";
+    }
 }
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-<?php
-if (isset($msg)) {
-    echo "$msg";
-}?>
 <head>
 
     <meta charset="utf-8">
@@ -69,87 +75,64 @@ if (isset($msg)) {
                 <div class="container-fluid">
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800"> <br>Post Manage</h1>
+                        <h1 class="h3 mb-0 text-gray-800"> <br>Editing user:
+                    <?php
+                    echo "<span class='font-weight-bold'>". $usereid. " - ". $username. "</span>";
+                    ?>
+                    </h1>
                     </div>
 
-                    <div class="row">
-
-                        <div class="col-xl-6 col-md-6 mb-4">
-                            <div class="card border-left-warning shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                                Unpublished Categories
-                                            </div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                            <?php
-                                            $c = 0;
-                                            while($row = mysqli_fetch_array($unpubcategory)) {
-                                                $c++;
-                                            }
-                                            echo $c;
-                                            ?>
-                                            </div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-box fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
+                    <div class = 'container'>
+                        <div class = 'row'>  
+                            <div class ="col-4">
+                                <form method = 'POST' action = '<?php echo $_SERVER['PHP_SELF'];?>'>
+                                <div class="col-xl-3 col-md-6 mb-4">        
+                                    <span class="font-weight-bold">First Name:</span>
                                 </div>
                             </div>
+
+                            <div class = 'col-6'>
+                            </div>
+
+                            <div class ="col-4">
+                                <div class="col-xl-2 col-md-6 mb-4 ml-0">
+                                    <input class = "dropdown-header" type = 'text' name = 'fname' value = '<?php echo "$fname" ?>'> <br>
+                                </div>
+                            </div>
+                            
+                                <div class="col-xl-3 col-md-6 mb-4">        
+                                    <span class="font-weight-bold">Last Name:</span>
+                                </div>
+
+                                <div class="col-xl-2 col-md-6 mb-4 ml-0">
+                                    <input class = "dropdown-header" type = 'text' name = 'lname' value = '<?php echo "$lname" ?>'> <br>
+                                </div>
+
+                                <div class="col-xl-3 col-md-6 mb-4">        
+                                    <span class="font-weight-bold">Username:</span>
+                                </div>
+
+                                <div class="col-xl-2 col-md-6 mb-4 ml-0">
+                                    <input class = "dropdown-header" type = 'text' name = 'username' value = '<?php echo "$username" ?>'> <br>
+                                </div>
                         </div>
                     </div>
+</div>
 
-                    <div class = "row">
-                        <div class="col-xl-6 col-md-4 mb-4">
-                            <form method = 'POST' action = "<?php echo $_SERVER['PHP_SELF']; ?>">
-                            <button class="btn-icon-split" type = 'submit' name = 'addcategory'>
-                                <span class="text">Add Category</span>
-                            </button>
-                            <button class="btn-icon-split" type = 'submit' name = 'editcategory'>
-                                <span class="text">Edit Category</span>
-                            </button>
-                            <button class="btn-icon-split" type = 'submit' name = 'status0'>
-                                <span class="text">Unpublish Category</span>
-                            </button>
-                            <button class="btn-icon-split" type = 'submit' name = 'status1'>
-                                <span class="text">Publish Category</span>
-                            </button>
-                        </div>
 
-                        <!-- <div class="col-xl-4 col-md-4 mb-4">
-                            <?php
-                            require("../filtercat.php");
-                            ?>
-                        </div> -->
-                        
-                    </div>
-
-                    <div class="col-xl-12 col-md-12 mb-4">
-                        <table class="table">
-                            <tr> 
-                            <th> Select </th>    
-                            <th> ID </th>
-                            <th> Category </th>
-                            <th> Publish Status </th>
-                            <th> Description </th>
-                            </tr>
-                        <form method = 'POST' action = "<?php echo $_SERVER['PHP_SELF']; ?>">
-                            <?php
-                            while ($row = mysqli_fetch_array($categories)) {
-                                if ($row['status']=='0') {
-                                    $status = "unpublished";
-                                } else {
-                                    $status = "published";
-                                }
-                                echo "<tr> <td> <input type = 'radio' name = 'editop' value = '". $row['category_id']. "'> </td> <td>". $row['category_id']. "</td> <td>". $row['categoryname']. "</td> <td>". $status. "</td> <td>". $row['description']. "</td> </tr>";
+                        <select name = 'levelop'>
+                            <?php 
+                            if ($levelid=='1') {
+                                echo "<option value ='1'>author</option> <option value ='2'>admin</option>";
+                            } else {
+                                echo "<option value ='2'>admin</option> <option value ='1'>author</option>";
                             }
                             ?>
-                        </table>
+                        </select>
+                        <input type = 'submit' name = 'savebutton' value = 'save'>
+                        </form>
                     </div>
 
-                </form>
                 </div>
             </div>
         </div>

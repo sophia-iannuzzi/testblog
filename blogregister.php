@@ -4,7 +4,6 @@ include("queries.php");
 if (isset($_POST['registerbutton'])) {
     $fname = mysqli_real_escape_string($conn,$_POST['fname']);
     $lname = mysqli_real_escape_string($conn,$_POST['lname']);
-    $email = mysqli_real_escape_string($conn,$_POST['email']);
     $username = mysqli_real_escape_string($conn,$_POST['username']);
     $pwd = mysqli_real_escape_string($conn, $_POST['pwd']);
     $hashpwd = password_hash($pwd, PASSWORD_DEFAULT);
@@ -19,7 +18,7 @@ if (isset($_POST['registerbutton'])) {
                 }
             }
             if (!isset($msg)) {
-                $query = "INSERT INTO `user` (`fname`, `lname`, `email`, `username`, `hash`,`level_id`) value ('$fname', '$lname', '$email', '$username', '$hashpwd', '1')";
+                $query = "INSERT INTO `user` (`fname`, `lname`, `username`, `hash`,`level_id`) value ('$fname', '$lname', '$username', '$hashpwd', '1')";
                 mysqli_query($conn, $query);
                 $monthid = date('n');
                 $year = date('Y');
@@ -59,7 +58,6 @@ if (isset($_POST['loginpage'])) {
     <form method = 'POST' action = "<?php echo $_SERVER['PHP_SELF']; ?>">
     Enter First Name: <input type = 'text' name = 'fname' > <br>
     Enter Last Name: <input type = 'text' name = 'lname' > <br>
-    Enter Email: <input type = 'text' name = 'email' > <br>
     Enter Username: <input type = 'text' name = 'username' > <br>
     Enter Password: <input type = 'password' name = 'pwd' > <br>
     <input type = 'submit' name = 'registerbutton' value = 'register' > <br>

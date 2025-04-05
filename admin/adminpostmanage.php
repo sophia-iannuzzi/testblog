@@ -92,7 +92,7 @@ if (isset($msg)) {
                     </div>
 
                     <div class = "row">
-                        <div class="col-xl-4 col-md-4 mb-4">
+                        <div class="col-xl-5 col-md-4 mb-2 mr-0">
                             <form method = 'POST' action = "<?php echo $_SERVER['PHP_SELF']; ?>">
                             <button class="btn-icon-split" type = 'submit' name = 'addpost'>
                                 <span class="text">Add Post</span>
@@ -108,20 +108,35 @@ if (isset($msg)) {
                             </button>
                         </div>
 
-                        <div class="col-xl-4 col-md-4 mb-4">
-                            <?php
-                            require("../postsearch.php");
-                            ?>
+                        <div class="col-xl-2 col-md-3 mb-2 mr-2">
+                            <input class = "dropdown-header" type = 'text' name = 'input' value = 'search titles'>
                         </div>
 
-                        <div class="col-xl-4 col-md-4 mb-4">
-                            <?php
-                            require("../filtercat.php");
-                            ?>
+                        <div class="col-xl-1 col-md-3 mb-2 mr-2">
+                            <button class="btn-icon-split" type = 'submit' name = 'search'>
+                            <span class="text">Search</span>
+                            </button>
+                        </div>
+
+                        <div class="col-xl-1 col-md-3 mb-2 mr-2">
+                            <select class = "dropdown" name = 'filterop'>
+                                <option class = "dropdown-header" value = '0'>all</option>
+                                <?php
+                                while ($row = mysqli_fetch_array($categories)) {
+                                    echo "<option class = 'dropdown-header' value = '". $row['category_id']. "'>". $row['categoryname']. "</option>";
+                                }
+                                ?>
+                            </select>
+                        </div>
+
+                        <div class="col-xl-2 col-md-3 mb-2">
+                            <button class="btn-icon-split" type = 'submit' name = 'filter'>
+                                <span class="text">Filter by Category</span>
+                            </button>
                         </div>
                         
                     </div>
-
+                                                    
                     <div class="col-xl-12 col-md-12 mb-4">
                         <table class = 'table'>
                             <tr>
