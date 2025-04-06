@@ -77,14 +77,16 @@ if (isset($_POST['search'])) {
     $string = $_POST['input'];
     $input = mysqli_real_escape_string($conn, $string);
     $searchpostlistq = $allpostlistq;
-    $searchpostlistq .= " WHERE";
-    if($_SESSION['loc'] == 'admin') {
-        $searchpostlistq .= " title LIKE '%$input%'";
-    } elseif ($_SESSION['loc'] == 'yourpost') {
-        $searchpostlistq .= " post.user_id='$userid' AND title LIKE '%$input%'";
-    } else {
-        $searchpostlistq .= " statuspost='1' AND title LIKE '%$input%'";
+    if(!empty($input)) {
+        $searchpostlistq .= " WHERE";
+        if($_SESSION['loc'] == 'admin') {
+            $searchpostlistq .= " title LIKE '%$input%'";
+        } elseif ($_SESSION['loc'] == 'yourpost') {
+            $searchpostlistq .= " post.user_id='$userid' AND title LIKE '%$input%'";
+        } else {
+            $searchpostlistq .= " statuspost='1' AND title LIKE '%$input%'";
+        }
+        $postfil = mysqli_query($conn, $searchpostlistq);
     }
-    $postfil = mysqli_query($conn, $searchpostlistq);
 }
 ?>

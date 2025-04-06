@@ -17,7 +17,7 @@
 <body>
 
 <?php
-$query = "SELECT * FROM `category` JOIN `categorychart` ON category.category_id=categorychart.category_id";
+$query = "SELECT * FROM `category` JOIN `categorychart` ON category.category_id=categorychart.category_id WHERE status='1'";
 $result = mysqli_query($conn, $query);
 ?>
 <script>
@@ -36,7 +36,7 @@ $result = mysqli_query($conn, $query);
         label: '# of posts in category',
         data: [
          <?php
-         $query = "SELECT * FROM `category` JOIN `categorychart` ON category.category_id=categorychart.category_id";
+         $query = "SELECT * FROM `category` JOIN `categorychart` ON category.category_id=categorychart.category_id WHERE status='1'";
          $result = mysqli_query($conn, $query);
          while($row = mysqli_fetch_array($result)) {
          echo $row['blogcount']. ",";

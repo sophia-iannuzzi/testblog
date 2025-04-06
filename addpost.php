@@ -21,6 +21,13 @@ if (isset($_POST['save'])) {
       $query = "INSERT INTO `postcat`(`post_id`, `category_id`) VALUE ('$postid', '$categoryid')";
       mysqli_query($conn, $query);
     }
+    if($_SESSION['loc']=='admin') {
+      header("Location:admin/adminpostmanage.php");
+    } else {
+      header("Location:yourpost.php");
+    }
+  } else {
+    $msg = 'please fill in everything';
   }
 }
 ?>

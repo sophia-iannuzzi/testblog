@@ -6,7 +6,7 @@
     <div class="sidebar-brand-icon rotate-n-15">
         <i class="fa fa-tractor"></i>
     </div>
-    <div class="sidebar-brand-text mx-3"> Farming Love </div>
+    <div class="sidebar-brand-text mx-3"><em> Farming Love </em></div>
 </a>
 
 <!-- Divider -->

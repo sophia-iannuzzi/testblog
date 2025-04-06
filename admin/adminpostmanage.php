@@ -149,12 +149,23 @@ if (isset($msg)) {
                             </tr>
                             <?php
                             while ($row = mysqli_fetch_array($postfil)) {
+                                $postid = $row['post_id'];
+                                $query = "SELECT * FROM `postcat` JOIN `category` ON postcat.category_id=category.category_id WHERE postcat.post_id=$postid";
+                                $categories = mysqli_query($conn, $query);
+                                $cat = [];
+                                while($rows=mysqli_fetch_array($categories)) {
+                                    $cat[]=$rows['categoryname'];
+                                }
                                 if ($row['statuspost']=='0') {
                                     $status = "unpublished";
                                 } elseif ($row['statuspost']=='1') {
                                     $status = "published";
                                 }
-                                echo "<tr> <td> <input type = 'radio' name = 'editop' value = '". $row['post_id']. "'> </td> <td>". $row['post_id']. "</td> <td>". $row['title']. "</td> <td>". $row['categoryname']. "</td> <td>". $status. "</td> <td>". $row['date']. "</td> </tr>";
+                                echo "<tr> <td> <input type = 'radio' name = 'editop' value = '". $row['post_id']. "'> </td> <td>". $row['post_id']. "</td> <td>". $row['title']. "</td> <td>";
+                                foreach ($cat as $category) {
+                                    echo $category. "/";
+                                }
+                                echo "</td> <td>". $status. "</td> <td>". $row['date']. "</td> </tr>";
                             }
                             ?>
                         </table>
@@ -163,6 +174,7 @@ if (isset($msg)) {
                 </form>
                 </div>
             </div>
+
         </div>
         <!-- End of Content Wrapper -->
     </div>
