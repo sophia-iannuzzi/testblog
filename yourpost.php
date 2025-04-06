@@ -6,10 +6,9 @@ if (!isset($_SESSION['levelid'])) {
 }
 include("connectionvar.php");
 include("queries.php");
-include("queries.php");
 $userid = $_SESSION['userid'];
 $searchpostlistq = $allpostlistq;
-$searchpostlistq .= " WHERE post.user_id='$userid' ORDER BY post.post_id ASC;";
+$searchpostlistq .= " WHERE post.user_id='$userid' GROUP BY post.post_id ASC;";
 $postfil = mysqli_query($conn, $searchpostlistq) or exit('bad query');
 require("postop.php");
 ?>
@@ -22,8 +21,7 @@ require("postop.php");
     if (isset($msg)) {
         echo "$msg";
     }
-    require("postsearch.php");
-    require("filtercat.php");
+    require("postsearchfil.php");
     ?>
 <table style = "border:6px solid black;">
         <tr>

@@ -1,22 +1,21 @@
 <html>
 <body>
-<link href="admin/css/sb-admin-2.min.css" rel="stylesheet">
-
-        <div class="col-xl-3 col-md-12 mb-3 mr-0">
-        <select class = "dropdown" name = 'filterop'>
-            <option class = "dropdown-header" value = '0'>all</option>
-            <?php
-            while ($row = mysqli_fetch_array($pcategories)) {
-                echo "<option class = 'dropdown-header' value = '". $row['category_id']. "'>". $row['categoryname']. "</option>";
-            }
-            ?>
-        </select>
-        </div>
-
-    <div class="col-xl-6 col-md-12 mb-3">
-        <button class="btn-icon-split" type = 'submit' name = 'filter'>
-            <span class="text">Filter by Category</span>
-        </button>
-    </div>
+<form method = 'POST' action = '<?php $_SERVER['PHP_SELF'];?>'> 
+<div class="col-xl-3 col-md-12 mb-3 mr-0">
+    <select class = "dropdown" name = 'filterop'>
+        <option class = "dropdown-header" value = '0'>all</option>
+        <?php
+        while ($row = mysqli_fetch_array($pcategories)) {
+        echo "<option class = 'dropdown-header' value = '". $row['category_id']. "'>". $row['categoryname']. "</option>";
+        }
+        ?>
+    </select>
+</div>
+<div class="col-xl-6 col-md-12 mb-3">
+    <button class="btn-icon-split" type = 'submit' name = 'filter'>
+        <span class="text">Filter by Category</span>
+    </button>
+</div>
+<form>
 </body>
 </html>

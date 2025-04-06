@@ -5,7 +5,7 @@ include("../connectionvar.php");
 include("../queries.php");
 $_SESSION['loc'] = 'admin';
 $postlistq = $allpostlistq;
-$postlistq .= " ORDER BY post.post_id ASC;";
+$postlistq .= " GROUP BY post.post_id ORDER BY post.post_id ASC;";
 $postfil = mysqli_query($conn, $postlistq) or exit('bad query');
 require("../postop.php");
 ?>
@@ -109,7 +109,7 @@ if (isset($msg)) {
                         </div>
 
                         <div class="col-xl-2 col-md-3 mb-2 mr-2">
-                            <input class = "dropdown-header" type = 'text' name = 'input' value = 'search titles'>
+                            <input class = "dropdown-header" type = 'text' name = 'input' placeholder = 'search titles'>
                         </div>
 
                         <div class="col-xl-1 col-md-3 mb-2 mr-2">

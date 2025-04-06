@@ -3,10 +3,12 @@
 //posts
 $unpostlistq = "SELECT * FROM `post` JOIN `user` ON post.user_id=user.user_id WHERE statuspost='0'";
 $unpostlist = mysqli_query($conn, $unpostlistq);
-$pubpostlistq = "SELECT * FROM `post` JOIN `user` ON post.user_id=user.user_id WHERE statuspost='1'";
+$pubpostlistq = "SELECT * FROM `post` JOIN `user` ON post.user_id=user.user_id WHERE statuspost='1' ORDER BY date DESC";
 $pubpostlist = mysqli_query($conn, $pubpostlistq);
 $allpostlistq = "SELECT * FROM `post` JOIN `user` ON post.user_id=user.user_id JOIN `postcat` ON post.post_id=postcat.post_id JOIN `category` ON postcat.category_id=category.category_id";
 $allpostlist = mysqli_query($conn, $allpostlistq);
+
+
 
 //users
 $userlistq = "SELECT * FROM `user` JOIN `level` ON user.level_id=level.level_id";
@@ -22,7 +24,7 @@ if (isset($_SESSION['postid'])) {
 }
 
 //categories
-$categoryq = "SELECT * FROM `category`";
+$categoryq = "SELECT * FROM `category` ORDER BY 'post_id'";
 $categories = mysqli_query($conn, $categoryq);
 $pubcategoryq = "SELECT * FROM `category` WHERE status='1'";
 $pcategories = mysqli_query($conn, $pubcategoryq);

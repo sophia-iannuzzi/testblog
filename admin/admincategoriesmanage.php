@@ -117,12 +117,6 @@ if (isset($msg)) {
                                 <span class="text">Publish Category</span>
                             </button>
                         </div>
-
-                        <!-- <div class="col-xl-4 col-md-4 mb-4">
-                            <?php
-                            require("../filtercat.php");
-                            ?>
-                        </div> -->
                         
                     </div>
 

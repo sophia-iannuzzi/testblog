@@ -64,10 +64,12 @@ if(isset($_POST['filter'])) {
             $postfil = mysqli_query($conn, $allpostq);
         }
     } elseif ($_SESSION['loc']=='yourpost') {
-        $catid = $_POST['filterop'];
-        $allpostq = $allpostlistq;
-        $allpostq .= " WHERE post.user_id='$userid' AND category.category_id='$catid'";
-        $postfil = mysqli_query($conn, $allpostq);
+        if ($_POST['filterop']!='0') {
+            $catid = $_POST['filterop'];
+            $allpostq = $allpostlistq;
+            $allpostq .= " WHERE post.user_id='$userid' AND category.category_id='$catid'";
+            $postfil = mysqli_query($conn, $allpostq);
+        }
     }
 }
 

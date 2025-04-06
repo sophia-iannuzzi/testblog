@@ -81,58 +81,44 @@ if (isset($_POST['savebutton'])) {
                     ?>
                     </h1>
                     </div>
-
                     <div class = 'container'>
-                        <div class = 'row'>  
-                            <div class ="col-4">
-                                <form method = 'POST' action = '<?php echo $_SERVER['PHP_SELF'];?>'>
-                                <div class="col-xl-3 col-md-6 mb-4">        
-                                    <span class="font-weight-bold">First Name:</span>
-                                </div>
+
+                        <form method = 'POST' action = "<?php echo $_SERVER['PHP_SELF']; ?>">
+                        <div class="row">
+                            <div class="col-4 mt-5">
+                                <span class="font-weight-bold">First Name:</span>
+                                <input class = "dropdown-header" type = 'text' name = 'fname' value = '<?php echo "$fname" ?>'> <br>
                             </div>
-
-                            <div class = 'col-6'>
+                            <div class="col-8 mt-5"><br>
+                                <select name = 'levelop'>
+                                    <?php 
+                                    if ($levelid=='1') {
+                                        echo "<option value ='1'>author</option> <option value ='2'>admin</option>";
+                                    } else {
+                                        echo "<option value ='2'>admin</option> <option value ='1'>author</option>";
+                                    }
+                                    ?>
+                                </select>
+                                <input type = 'submit' name = 'savebutton' value = 'save'>
                             </div>
+                        </div>
 
-                            <div class ="col-4">
-                                <div class="col-xl-2 col-md-6 mb-4 ml-0">
-                                    <input class = "dropdown-header" type = 'text' name = 'fname' value = '<?php echo "$fname" ?>'> <br>
-                                </div>
+                        <div class="row">
+                            <div class="col-4 mt-3">
+                                <span class="font-weight-bold">Last Name:</span>
+                                <input class = "dropdown-header" type = 'text' name = 'lname' value = '<?php echo "$lname" ?>'> <br>
                             </div>
-                            
-                                <div class="col-xl-3 col-md-6 mb-4">        
-                                    <span class="font-weight-bold">Last Name:</span>
-                                </div>
+                        </div>
 
-                                <div class="col-xl-2 col-md-6 mb-4 ml-0">
-                                    <input class = "dropdown-header" type = 'text' name = 'lname' value = '<?php echo "$lname" ?>'> <br>
-                                </div>
-
-                                <div class="col-xl-3 col-md-6 mb-4">        
-                                    <span class="font-weight-bold">Username:</span>
-                                </div>
-
-                                <div class="col-xl-2 col-md-6 mb-4 ml-0">
-                                    <input class = "dropdown-header" type = 'text' name = 'username' value = '<?php echo "$username" ?>'> <br>
+                        <div class="row">
+                            <div class="col-4 mt-3">
+                                <span class="font-weight-bold">Username:</span>
+                                <input class = "dropdown-header" type = 'text' name = 'username' value = '<?php echo "$username" ?>'> <br>
                                 </div>
                         </div>
-                    </div>
-</div>
-
-
-                        <select name = 'levelop'>
-                            <?php 
-                            if ($levelid=='1') {
-                                echo "<option value ='1'>author</option> <option value ='2'>admin</option>";
-                            } else {
-                                echo "<option value ='2'>admin</option> <option value ='1'>author</option>";
-                            }
-                            ?>
-                        </select>
-                        <input type = 'submit' name = 'savebutton' value = 'save'>
                         </form>
-                    </div>
 
+                    </div>
                 </div>
             </div>
         </div>
