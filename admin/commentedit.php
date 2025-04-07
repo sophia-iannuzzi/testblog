@@ -70,7 +70,8 @@ while ($rows = mysqli_fetch_array($result)) {
                         <div class="row">
                             <div class="col-4 mt-3">
                                 <span class="font-weight-bold">Content:</span>
-                                <input class = "dropdown-header" type = 'text' name = 'content' value = '<?php echo "$content" ?>'>
+                                <textarea class="form-control" rows="3" name = 'content'><?php echo "$content" ?></textarea>
+                            </div>
                             </div>
                         </div>
                         </form>

@@ -6,7 +6,7 @@ if (!isset($_SESSION['levelid'])) {
 include("connectionvar.php");
 $postid = $_SESSION['postid'];
 if (isset($_POST['submit'])) {
-  $title = mysqli_real_escape_string($conn, $_POST['title']);
+  $title = mysqli_real_escape_string($conn, $_POST['titlepost']);
   $content = mysqli_real_escape_string($conn, $_POST['content']);
   $query = "UPDATE post SET title= '$title', content= '$content' WHERE post_id= '$postid'";
   mysqli_query($conn, $query);
@@ -19,7 +19,7 @@ if (isset($_POST['submit'])) {
 $query = "SELECT * FROM `post` WHERE post.post_id=$postid";
 $result = mysqli_query($conn, $query);
 while ($rows = mysqli_fetch_array($result)) {
-    $title = $rows['title'];
+    $title = $rows['titlepost'];
     $content = $rows['content'];
 }
 ?>
@@ -72,7 +72,7 @@ while ($rows = mysqli_fetch_array($result)) {
     ?>
 <body>
   <form method = 'POST' action = "<?php echo $_SERVER['PHP_SELF']; ?>">
-  <input type = 'text' name = 'title' value = '<?php echo $title?>'> 
+  <input type = 'text' name = 'titlepost' value = '<?php echo $title?>'> 
   <div id="editor">
       <textarea name = 'content' id='edit'> <?php if(isset($content)) { echo $content;}?> </textarea>
       <input type = 'submit' name = 'submit' value = 'submit' >

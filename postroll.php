@@ -16,7 +16,7 @@ $category = mysqli_query($conn, $catquery);
      </strong>
       <h3 class="mb-0">
       <?php
-      echo $rows['title'];
+      echo $rows['titlepost'];
       ?>
       </h3>
       <div class="mb-1 text-body-secondary">

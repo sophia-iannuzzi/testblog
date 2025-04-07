@@ -18,7 +18,7 @@ if (isset($_POST['viewop'])) {
 
 if (isset($_POST['search'])) {
     $input = mysqli_real_escape_string($conn, $_POST['input']);
-    $filterq = "SELECT * FROM `post` JOIN `user` ON post.user_id=user.user_id WHERE statuspost='1' AND title LIKE '%$input%' ORDER BY date DESC";
+    $filterq = "SELECT * FROM `post` JOIN `user` ON post.user_id=user.user_id WHERE statuspost='1' AND titlepost LIKE '%$input%' ORDER BY date DESC";
     $postfil = mysqli_query($conn, $filterq);
 }
 ?>

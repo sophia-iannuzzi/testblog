@@ -13,7 +13,7 @@ if (isset($_POST['save'])) {
   if(!isset($_POST['category'])) {
     $msg = "please select category/categories";
   } elseif(!empty($_POST['title']) and !empty($_POST['content']) and isset($_POST['category'])) {
-    $query = "INSERT INTO `post` (`user_id`, `title`, `content`, `statuspost`, `date`) VALUE ('$userid', '$title', '$content', '0', '$date')";
+    $query = "INSERT INTO `post` (`user_id`, `titlepost`, `content`, `statuspost`, `date`) VALUE ('$userid', '$title', '$content', '0', '$date')";
     mysqli_query($conn, $query);
     $postid = $conn->insert_id;
 
@@ -41,21 +41,8 @@ if (isset($_POST['save'])) {
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="froala/froala_editor.css">
   <link rel="stylesheet" href="froala/froala_style.css">
-  <link rel="stylesheet" href="froala/code_view.css">
   <link rel="stylesheet" href="froala/draggable.css">
-  <link rel="stylesheet" href="froala/colors.css">
-  <link rel="stylesheet" href="froala/emoticons.css">
-  <link rel="stylesheet" href="froala/image_manager.css">
-  <link rel="stylesheet" href="froala/image.css">
-  <link rel="stylesheet" href="froala/line_breaker.css">
-  <link rel="stylesheet" href="froala/table.css">
   <link rel="stylesheet" href="froala/char_counter.css">
-  <link rel="stylesheet" href="froala/fullscreen.css">
-  <link rel="stylesheet" href="froala/file.css">
-  <link rel="stylesheet" href="froala/quick_insert.css">
-  <link rel="stylesheet" href="froala/help.css">
-  <link rel="stylesheet" href="froala/spell_checker.css">
-  <link rel="stylesheet" href="froala/special_characters.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.css">
 
   <style>
@@ -73,17 +60,27 @@ if (isset($_POST['save'])) {
       background-color: red;
     }
   </style>
+  <link href="https://fonts.googleapis.com/css?family=Playfair&#43;Display:700,900&amp;display=swap" rel="stylesheet"><!-- Custom styles for this template -->
+  <link href="css/blog.css" rel="stylesheet">
+  <link href="assets/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">    </head>
 </head>
 
 <body>
 <?php require('navbar.php'); ?> <br>
 <form method = 'POST' action = "<?php echo $_SERVER['PHP_SELF']; ?>">
-  <input type = 'text' name = 'title' value = '<?php if(isset($title)) { echo $title;} else { echo"Write title!"; }?>'>
-    <?php 
+  <div class="col-sm-4 mx-auto" style="width: 200px">
+    <input class="form-control" name = 'title' placeholder ='Write Title'>
+  </div>
+
+  <div class='mx-auto' style='width: 200px'> 
+    <?php
     while ($rows = mysqli_fetch_array($pcategories)) {
-      echo "<input type = 'checkbox' name = 'category[]' value ='". $rows['category_id']. "'>". $rows['categoryname']. "</option>";
+      echo "<div class='form-check form-check-inline'> <input class='form-check-input' type = 'checkbox' name = 'category[]' value ='". $rows['category_id']. "'>". $rows['categoryname']. " </div> </option>";
     } ?>
+    </div> 
   </select>
+
   <div id="editor">
       <textarea name = 'content' id='edit'><?php if(isset($content)) { echo $content;} else { echo"Write Blog!"; }?></textarea>
       <input type = 'submit' name = 'save' value = 'save' >
@@ -103,35 +100,12 @@ if (isset($_POST['save'])) {
   <script type="text/javascript" src="froala/froala_editor.min.js"></script>
   <script type="text/javascript" src="froala/align.min.js"></script>
   <script type="text/javascript" src="froala/char_counter.min.js"></script>
-  <script type="text/javascript" src="froala/code_beautifier.min.js"></script>
-  <script type="text/javascript" src="froala/code_view.min.js"></script>
-  <script type="text/javascript" src="froala/colors.min.js"></script>
   <script type="text/javascript" src="froala/draggable.min.js"></script>
-  <script type="text/javascript" src="froala/emoticons.min.js"></script>
-  <script type="text/javascript" src="froala/entities.min.js"></script>
-  <script type="text/javascript" src="froala/file.min.js"></script>
   <script type="text/javascript" src="froala/font_size.min.js"></script>
   <script type="text/javascript" src="froala/font_family.min.js"></script>
-  <script type="text/javascript" src="froala/fullscreen.min.js"></script>
   <script type="text/javascript" src="froala/image.min.js"></script>
-  <script type="text/javascript" src="froala/image_manager.min.js"></script>
-  <script type="text/javascript" src="froala/line_breaker.min.js"></script>
-  <script type="text/javascript" src="froala/inline_style.min.js"></script>
-  <script type="text/javascript" src="froala/link.min.js"></script>
-  <script type="text/javascript" src="froala/lists.min.js"></script>
   <script type="text/javascript" src="froala/paragraph_format.min.js"></script>
   <script type="text/javascript" src="froala/paragraph_style.min.js"></script>
-  <script type="text/javascript" src="froala/quick_insert.min.js"></script>
-  <script type="text/javascript" src="froala/quote.min.js"></script>
-  <script type="text/javascript" src="froala/table.min.js"></script>
-  <script type="text/javascript" src="froala/save.min.js"></script>
-  <script type="text/javascript" src="froala/url.min.js"></script>
-  <script type="text/javascript" src="froala/help.min.js"></script>
-  <script type="text/javascript" src="froala/print.min.js"></script>
-  <script type="text/javascript" src="froala/spell_checker.min.js"></script>
-  <script type="text/javascript" src="froala/special_characters.min.js"></script>
-  <script type="text/javascript" src="froala/word_paste.min.js"></script>
-
   <script>
     (function () {
       const editorInstance = new FroalaEditor("#edit", {

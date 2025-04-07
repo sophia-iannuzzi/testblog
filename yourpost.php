@@ -71,7 +71,7 @@ require("postop.php");
             while($rows=mysqli_fetch_array($categories)) {
                 $cat[]=$rows['categoryname'];
             }
-            echo "<tr> <td> <input type = 'radio' name = 'editop' value = '". $row['post_id']. "'> </td> <td>". $row['post_id']. "</td> <td>". $row['title']. "</td> <td>";
+            echo "<tr> <td> <input type = 'radio' name = 'editop' value = '". $row['post_id']. "'> </td> <td>". $row['post_id']. "</td> <td>". $row['titlepost']. "</td> <td>";
             foreach ($cat as $category) {
                 echo $category. "/";
             }

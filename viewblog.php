@@ -31,7 +31,7 @@ if (isset($_SESSION['levelid'])) {
     <div class="mx-auto" style="width: 700px;">
         <h2 class="display-5 link-body-emphasis mb-1">
         <?php
-        echo $prow['title'];
+        echo $prow['titlepost'];
         ?> </h2>
         <p style = "font-size:80%;"> <?php
         while ($crow = mysqli_fetch_array($category)) {
