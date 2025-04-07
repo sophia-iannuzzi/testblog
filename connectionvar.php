@@ -2,6 +2,6 @@
 define('dbhost', 'localhost');
 define('dbuser', 'root');
 define('dbpwd', '');
-define('dbname', 'blogdb');
+define('dbname', 'iannuzzi');
 $conn = mysqli_connect(dbhost, dbuser, dbpwd, dbname) or exit('bad connection');
 ?>
