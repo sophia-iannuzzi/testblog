@@ -5,8 +5,6 @@ if (!isset($conn)) {
     $location = '1';
 }
 include("queries.php");
-include("queries.php");
-include("queries.php");
 $postid = $_SESSION['postid'];
 $pquery = "SELECT * FROM `post` JOIN `user` ON post.user_id=user.user_id WHERE post.post_id=$postid";
 $catquery = "SELECT * FROM `postcat` JOIN `category` ON postcat.category_id=category.category_id WHERE postcat.post_id=$postid AND category.status='1'";
@@ -17,9 +15,8 @@ $prow = mysqli_fetch_array($post);
 
 <html>
 <?php 
-if (isset($_SESSION['levelid'])) {
-    include('navbar.php'); 
-} ?>
+include('navbar.php'); 
+?>
 <head>
     <link href="https://fonts.googleapis.com/css?family=Playfair&#43;Display:700,900&amp;display=swap" rel="stylesheet"><!-- Custom styles for this template -->
     <link href="css/blog.css" rel="stylesheet">

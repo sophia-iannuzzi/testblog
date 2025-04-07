@@ -3,7 +3,7 @@ session_start();
 include("connectionvar.php");
 include("queries.php");
 if (!isset($_SESSION['levelid'])) {
-  header("Location:logout.php");
+  header("Location:index.php");
 }
 if (isset($_POST['save'])) {
   $userid = $_SESSION['userid'];
@@ -63,17 +63,24 @@ if (isset($_POST['save'])) {
   <link href="https://fonts.googleapis.com/css?family=Playfair&#43;Display:700,900&amp;display=swap" rel="stylesheet"><!-- Custom styles for this template -->
   <link href="css/blog.css" rel="stylesheet">
   <link href="assets/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">    </head>
+  <link href="admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">    
 </head>
 
 <body>
 <?php require('navbar.php'); ?> <br>
 <form method = 'POST' action = "<?php echo $_SERVER['PHP_SELF']; ?>">
   <div class="col-sm-4 mx-auto" style="width: 200px">
-    <input class="form-control" name = 'title' placeholder ='Write Title'>
+    <input class="form-control" name = 'title' 
+    <?php
+      if(isset($title)) {
+        echo "value = '$title'";
+      } else {
+          echo "placeholder ='Write Title'";
+      }
+    ?>>
   </div>
 
-  <div class='mx-auto' style='width: 200px'> 
+  <div class='mx-auto' style='width: 600px'> 
     <?php
     while ($rows = mysqli_fetch_array($pcategories)) {
       echo "<div class='form-check form-check-inline'> <input class='form-check-input' type = 'checkbox' name = 'category[]' value ='". $rows['category_id']. "'>". $rows['categoryname']. " </div> </option>";

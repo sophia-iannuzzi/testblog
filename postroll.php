@@ -28,7 +28,7 @@ $category = mysqli_query($conn, $catquery);
         <?php
         $content = $rows['content'];
         $content=strip_tags($content);
-        echo substr($content, 0, 30). "...";
+        echo substr($content, 0, 50). "...";
         ?>
       </p>
     <button type="submit" class="btn btn-primary btn-lg btn-block" name ='viewop[]' value = '

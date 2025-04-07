@@ -1,9 +1,7 @@
 <?php
 session_start();
 include("../connectionvar.php");
-if (!isset($_SESSION['levelid'])) {
-  header("Location:../logout.php");
-}
+require("adminerror.php");
 if (isset($_POST['addcategory'])) {
     $categoryname = mysqli_real_escape_string($conn, $_POST['categoryname']);
     $description = mysqli_real_escape_string($conn, $_POST['description']);

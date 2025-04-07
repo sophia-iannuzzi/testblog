@@ -1,7 +1,7 @@
 <html>
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-<!-- Sidebar - Brand -->
+
 <a class="sidebar-brand d-flex align-items-center justify-content-center" href="../index.php">
     <div class="sidebar-brand-icon rotate-n-15">
         <i class="fa fa-tractor"></i>
@@ -9,10 +9,10 @@
     <div class="sidebar-brand-text mx-3"><em> Farming Love </em></div>
 </a>
 
-<!-- Divider -->
+
 <hr class="sidebar-divider">
 
-<!-- Heading -->
+
 <div class="sidebar-heading">
     Manage
 </div>
@@ -49,7 +49,7 @@
         <span>Logout</span></a>
 </li>
 
-<!-- Divider -->
+
 <hr class="sidebar-divider d-none d-md-block">
 
 </ul>

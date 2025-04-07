@@ -13,6 +13,7 @@ while ($row = mysqli_fetch_array($result)) {
     $fname = $row['fname'];
     $lname = $row['lname'];
     $username = $row['username'];
+    $hash = $row['hash'];
 }
 if (isset($_POST['savebutton'])) {
     $fnamenew = mysqli_real_escape_string($conn, $_POST['fname']);
@@ -27,7 +28,10 @@ if (isset($_POST['savebutton'])) {
                     break;
                 }
             }
-        } 
+            if (password_verify($usernamenew, $hash)) {
+                $msg = "cannot use username";
+            }
+        }
         if (!isset($msg)) {
             $query = "UPDATE user SET fname = '$fnamenew', lname = '$lnamenew', username = '$usernamenew', level_id='$levelid' WHERE user_id='$usereid'";
             mysqli_query($conn, $query);
@@ -79,6 +83,9 @@ if (isset($_POST['savebutton'])) {
                         <h1 class="h3 mb-0 text-gray-800"> <br>Editing user:
                     <?php
                     echo "<span class='font-weight-bold'>". $usereid. " - ". $username. "</span>";
+                    if (isset($msg)) {
+                        echo "<br> $msg";
+                    }
                     ?>
                     </h1>
                     </div>

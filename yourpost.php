@@ -2,7 +2,7 @@
 session_start();
 $_SESSION['loc'] ='yourpost';
 if (!isset($_SESSION['levelid'])) {
-    header("Location:bloglogout.php");
+    header("Location:index.php");
 }
 include("connectionvar.php");
 include("queries.php");

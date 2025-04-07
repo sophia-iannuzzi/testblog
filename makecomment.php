@@ -8,7 +8,7 @@ if (isset($_POST['submitbutton'])) {
     if (!empty($title) and !empty($fname) and !empty($lname) and !empty($content)) {
         $query = "INSERT INTO `comment` (`post_id`, `fname`, `lname`, `comtitle`, `comcontent`, `status`, `date`) VALUE ('$postid', '$fname', '$lname', '$title', '$content', '1', '$date')";
         mysqli_query($conn, $query);
-        header("PHP_SELF");
+        header("blogview.php");
     } else {
         $msg = "please fill in all fields";
     }
@@ -44,6 +44,10 @@ if (isset($_POST['submitbutton'])) {
                 <textarea class="form-control" rows="3" name = 'content'></textarea>
             </div>
 
+            
+            <div class="col-sm-12">
+                <button type="submit" class="btn btn-primary btn-lg btn-block" name ='submitbutton'>comment</button>
+            </div>
         </div>
     </form>
 </div>
