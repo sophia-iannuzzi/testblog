@@ -1,9 +1,9 @@
 <?php
 if (isset($_POST['submitbutton'])) {
-    $title = $_POST['title'];
-    $fname = $_POST['fname'];
-    $lname = $_POST['lname'];
-    $content = $_POST['content'];
+    $title = mysqli_real_escape_string($conn, $_POST['title']);
+    $fname = mysqli_real_escape_string($conn, $_POST['fname']);
+    $lname = mysqli_real_escape_string($conn, $_POST['lname']);
+    $content = mysqli_real_escape_string($conn, $_POST['content']);
     $date = date('Y-m-d');
     if (!empty($title) and !empty($fname) and !empty($lname) and !empty($content)) {
         $query = "INSERT INTO `comment` (`post_id`, `fname`, `lname`, `comtitle`, `comcontent`, `status`, `date`) VALUE ('$postid', '$fname', '$lname', '$title', '$content', '1', '$date')";
